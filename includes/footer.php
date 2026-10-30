@@ -1,62 +1,49 @@
 <?php
-require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config.php';
 ?>
 <footer class="site-footer">
-  <div class="container">
+  <div class="footer-container">
     <div class="footer-grid">
-      <div>
-        <div class="logo-brand" style="margin-bottom: 1rem;">
-          <div class="logo-icon">&#127891;</div>
-          <div>Student Login Page</div>
+      <div class="footer-brand-col">
+        <div class="footer-brand">
+          <div class="brand-logo-badge brand-logo-badge-sm">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M12 3L1 9L12 15L21 10.09V17H23V9M5 13.18V17.18C5 19.5 8.13 21.36 12 21.36C15.87 21.36 19 19.5 19 17.18V13.18L12 17L5 13.18Z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="footer-college"><?php echo htmlspecialchars(COLLEGE_NAME); ?></div>
+            <div class="footer-tagline"><?php echo htmlspecialchars(PORTAL_NAME); ?></div>
+          </div>
         </div>
-        <p style="font-size: 0.9rem; line-height: 1.6; color: #cbd5e1;">
-          Responsive Internet Programming (IP) Assignment showcasing PHP backend integration, secure database connectivity, dynamic form validations, and custom White, Navy Blue & Gold aesthetic.
+        <p class="footer-desc">
+          Official self-service academic portal for enrolled students. Access course schedules, examination timetables, library cards, and profile verification.
         </p>
       </div>
 
-      <div>
-        <h4 class="footer-heading">Quick Pages</h4>
-        <ul class="footer-links">
-          <li><a href="index.php">&#8250; Home Page</a></li>
-          <li><a href="login.php">&#8250; Login Portal</a></li>
-          <li><a href="register.php">&#8250; New Registration</a></li>
-          <li><a href="dashboard.php">&#8250; User Dashboard</a></li>
-          <li><a href="contact.php">&#8250; Contact & Feedback</a></li>
+      <div class="footer-nav-col">
+        <h4 class="footer-title">Portal Navigation</h4>
+        <ul class="footer-link-list">
+          <li><a href="index.php">Student Login</a></li>
+          <li><a href="register.php">Create Account</a></li>
+          <li><a href="forgot.php">Forgot Password</a></li>
+          <li><a href="dashboard.php">Student Dashboard</a></li>
         </ul>
       </div>
 
-      <div>
-        <h4 class="footer-heading">Technology</h4>
-        <ul class="footer-links">
-          <li><a href="#!">&#8250; PHP 8 Backend</a></li>
-          <li><a href="#!">&#8250; MySQL / MariaDB</a></li>
-          <li><a href="#!">&#8250; Prepared Statements</a></li>
-          <li><a href="#!">&#8250; CSS3 Flexbox & Grid</a></li>
-          <li><a href="#!">&#8250; JavaScript Validation</a></li>
+      <div class="footer-nav-col">
+        <h4 class="footer-title">Student Help Desk</h4>
+        <ul class="footer-link-list">
+          <li><span>Office: Academic Affairs Hall, Room 102</span></li>
+          <li><span>Email: helpdesk@apextech.edu</span></li>
+          <li><span>Hours: Mon - Fri, 9:00 AM - 5:00 PM</span></li>
         </ul>
-      </div>
-
-      <div>
-        <h4 class="footer-heading">System Status</h4>
-        <p style="font-size: 0.85rem; margin-bottom: 0.75rem; color:#cbd5e1;">
-          Backend Connectivity:
-        </p>
-        <div style="margin-bottom: 1rem;">
-          <?php echo db_status_badge(); ?>
-        </div>
-        <a href="setup.php" class="btn btn-navy btn-sm" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">
-          &#9881; View Database Tools
-        </a>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <div>
-        &copy; <?php echo date('Y'); ?> <strong>Student Login Page</strong>. Designed with White, Navy Blue & Gold.
-      </div>
-      <div>
-        Tested for Cross-Device Responsiveness (Mobile, Tablet, Desktop)
-      </div>
+      <div>&copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars(COLLEGE_NAME); ?>. All rights reserved.</div>
+      <div>Authorized Student Access Portal &bull; Encrypted Session Security</div>
     </div>
   </div>
 </footer>
@@ -64,4 +51,3 @@ require_once __DIR__ . '/../config/db.php';
 <script src="assets/js/validation.js"></script>
 </body>
 </html>
-

@@ -1,83 +1,164 @@
-# Student Login Portal - Web Application
+# Student Portal Web Application
 
-A responsive PHP & MySQL student portal web application with full form validation, interactive authentication, digital student identity cards, and self-service password reset.
-
----
-
-## 🌟 Application Workflow & Architecture
-
-### 1. Homepage (`index.php`)
-- **Logo & Portal Branding:** Official University Crest & Golden Cap (`#C9A227`).
-- **Centered Login Box:**
-  - **Student ID:** Numeric field (digits 0-9 only).
-  - **Student Name:** Optional name field for registered students.
-  - **Password:** Password field.
-  - **Forgot Password Link:** Takes users to the email verification code page.
-  - **Validation States:**
-    - If Student ID is not found: Displays *"Student ID not found in database."*
-    - If Password is incorrect: Specifically displays *"Wrong password."*
-    - If Valid: Displays green success badge and redirects to the Student Dashboard.
-  - **Create Account Link:** Direct link to registration for new students.
-
-### 2. Student Registration (`register.php`)
-- **Student ID:** Full numbers only (digits 0-9 enforced via client regex & server PHP).
-- **First Name:** **Mandatory** (letters and spaces only).
-- **Last Name:** **Optional** (letters and spaces only).
-- **Gmail Address:**
-  - Must end with `@gmail.com`.
-  - Username before `@gmail.com` must have **NO caps lock** (lowercase only).
-- **Address:** Street / Campus Hostel Address.
-- **Password:**
-  - Alphanumeric, digits 0-9.
-  - Must contain at least one **capital letter (A-Z)** and at least one **small letter (a-z)**.
-- **Confirm Password:** Must match password.
-
-### 3. Registration Success Page (`registration_success.php`)
-- Displays green celebration message: *"You Have Registered Successfully!"*
-- Summary card showing:
-  - Student ID
-  - First Name & Last Name
-  - Gmail Address
-  - Residential Address
-  - Registration Date & Time
-- **Next Action Button:** *"Proceed to Student Portal & Digital ID Card ➔"* leading directly to the Dashboard.
-
-### 4. Student Dashboard & Digital ID Card (`dashboard.php`)
-- **Official Digital Student ID Card:**
-  - University crest and gold-bordered header.
-  - Student photo avatar.
-  - Full Name, Student ID, Department, Gmail, and Campus Address.
-  - Barcode and QR code simulation.
-  - 1-click **Print Student ID Card** button.
-- **Academic Modules:**
-  - Enrolled courses with attendance tracking.
-  - Upcoming internal exams and library book status.
-
-### 5. Forgot Password Flow (`forgot_password.php`)
-- **Step 1:** Enter registered `@gmail.com` address.
-- **Verification Code:** Automatically generates a 6-digit numerical code and stores it in database/session.
-- **Demo Simulation Badge:** Displays the 6-digit code on-screen for instant testing without an external mail server.
-- **Step 2:** Enter verification code, set new password (meeting the capital + small + number condition), and confirm.
-- **Success:** Updates the database and allows logging in immediately with the new password.
+A responsive 5-page student portal built with **HTML5, CSS3, JavaScript, PHP (PDO), and MySQL**. Designed with a crisp white background, royal navy blue (`#0B1F4B`), and gold (`#C9A227`) theme, featuring gold buttons with navy text.
 
 ---
 
-## 🔑 Demo Accounts for Immediate Testing
+## 📁 Project Folder Structure
 
-| Role | Student ID | Name | Gmail ID | Password |
-| :--- | :--- | :--- | :--- | :--- |
-| **Demo Student 1** | `1001` | `Alex Morgan` | `alex@gmail.com` | `Password123` |
-| **Demo Student 2** | `1002` | `Aswani Ravi` | `aswani@gmail.com` | `Password123` |
-
----
-
-## 🚀 How to Run Locally
-
-```powershell
-# Open terminal in project folder:
-cd "c:\Users\LOQ\Desktop\webpage php"
-
-# Start the PHP server:
-php -S localhost:8000
 ```
-Open your browser at **`http://localhost:8000`**.
+webpage php/
+├── assets/
+│   ├── css/
+│   │   └── style.css            # White, Navy (#0B1F4B) & Gold (#C9A227) responsive styles
+│   └── js/
+│       └── validation.js        # Real-time client-side live validation & mobile toggle
+├── includes/
+│   ├── csrf.php                 # CSRF token generator & validator
+│   ├── db.php                   # PDO Database connector (MySQL default + SQLite fallback)
+│   ├── footer.php               # Branded Navy & Gold footer
+│   └── header.php               # Responsive header, SVG graduation cap logo & navigation
+├── config.php                   # Database & SMTP / PHPMailer configuration
+├── index.php                    # PAGE 1: Home Page = Login
+├── register.php                 # PAGE 2: Create Account
+├── success.php                  # PAGE 3: Registration Success
+├── dashboard.php                # PAGE 4: Student Dashboard
+├── forgot.php                   # PAGE 5: Forgot Password (3 steps on same page)
+├── logout.php                   # Session destruction & redirect
+├── schema.sql                   # MySQL database creation & table schema
+└── README.md                    # Setup documentation
+```
+
+---
+
+## 🗄️ Database Schema (`schema.sql`)
+
+```sql
+CREATE DATABASE IF NOT EXISTS `student_portal` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `student_portal`;
+
+-- Table 1: students
+CREATE TABLE IF NOT EXISTS `students` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `student_id` VARCHAR(12) NOT NULL UNIQUE,
+  `first_name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) DEFAULT '',
+  `email` VARCHAR(100) NOT NULL UNIQUE,
+  `password_hash` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Table 2: reset_codes
+CREATE TABLE IF NOT EXISTS `reset_codes` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `email` VARCHAR(100) NOT NULL,
+  `code` VARCHAR(6) NOT NULL,
+  `expires_at` DATETIME NOT NULL,
+  INDEX (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Pre-seeded Student Account for Quick Testing:
+-- Student ID: 20240101 | Password: Password123
+INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `password_hash`)
+VALUES (
+  '20240101',
+  'Aswani',
+  'Ravi',
+  'aswani123@gmail.com',
+  '$2y$10$wE3/qQJ6m1wS8xPcqYjY7.0xK63q.qAfePsmk.YQ8K24vA2L9K6m.'
+)
+ON DUPLICATE KEY UPDATE `student_id` = `student_id`;
+```
+
+---
+
+## 🛠️ Step-by-Step Instructions to Run on XAMPP
+
+### Step 1: Copy Project Folder to XAMPP
+Copy this project directory into your XAMPP `htdocs` folder:
+```
+C:\xampp\htdocs\student-portal
+```
+
+### Step 2: Start Apache and MySQL
+1. Open the **XAMPP Control Panel**.
+2. Click **Start** next to **Apache**.
+3. Click **Start** next to **MySQL**.
+
+### Step 3: Import the Database in phpMyAdmin
+1. Open your browser and go to:
+   ```
+   http://localhost/phpmyadmin/
+   ```
+2. Click the **Import** tab in the top navigation bar.
+3. Click **Choose File** and select `schema.sql` located inside the project folder (`C:\xampp\htdocs\student-portal\schema.sql`).
+4. Click **Go** (or **Import**) at the bottom.
+5. The `student_portal` database and both tables (`students`, `reset_codes`) will be created with the demo account.
+
+### Step 4: Open the Website
+In your browser, visit:
+```
+http://localhost/student-portal/
+```
+*(Or if placed directly in `htdocs`: `http://localhost/`)*
+
+---
+
+## 🔑 Demo Account Credentials
+
+| Field | Value |
+| :--- | :--- |
+| **Student ID** | `20240101` |
+| **Password** | `Password123` |
+| **Name** | Aswani Ravi |
+| **Email** | `aswani123@gmail.com` |
+
+---
+
+## 📄 The 5 Pages Explained
+
+### Page 1: Home Page = Login (`index.php`)
+- **Logo & Name:** College graduation cap SVG logo and college name at the top.
+- **Login Form:** Strictly **Student ID** and **Password** only.
+- **Validation Messages:**
+  - If password is wrong: displays exact red message **`Wrong password`**.
+  - If Student ID does not exist: displays exact red message **`Student ID not found. Please create an account.`**
+- **Links:**
+  - "Forgot password?" &rarr; `forgot.php`
+  - "New student? Create an account" &rarr; `register.php`
+- On valid login: regenerates session ID and opens `dashboard.php`.
+
+### Page 2: Create Account (`register.php`)
+- **Fields & Rules:**
+  1. **Student ID:** Numbers only (0-9), 6 to 12 digits, unique in database.
+  2. **First name:** Required, letters only.
+  3. **Last name:** Optional, letters only if filled.
+  4. **Email:** Must end with `@gmail.com`. The part before `@gmail.com` must be lowercase only (no capital letters), e.g. `aswani123@gmail.com`. Unique in database.
+  5. **Password:** At least 8 characters, must contain at least one capital letter (A-Z), one small letter (a-z), and one number (0-9).
+  6. **Confirm password:** Must match password.
+- Live client-side JavaScript error under each field + server-side PHP validation.
+- "Already registered? Login" link goes back to Page 1 (`index.php`).
+- On success: saves student and redirects to Page 3 (`success.php`).
+
+### Page 3: Registration Success (`success.php`)
+- Shows green message: **`You have registered successfully.`**
+- Shows clean summary card with: Student ID, full name (first and last name), and email. Never shows password.
+- Gold button **`Continue to Dashboard`** linking to Page 4 (`dashboard.php`).
+- Session-guarded: Only accessible directly after registering; otherwise redirects to Page 1.
+
+### Page 4: Student Dashboard (`dashboard.php`)
+- Session-protected: redirects unauthenticated users to Page 1 (`index.php`).
+- **Welcome banner** with the student's full name.
+- **Profile card** with Student ID, full name, and email.
+- **4 Quick-Link Cards:**
+  1. *Course Materials*
+  2. *Notices and Deadlines*
+  3. *Attendance*
+  4. *Help Desk*
+- **Notice Board** with 3 sample notices.
+- **Logout button** that destroys the session and returns to Page 1 (`index.php`).
+
+### Page 5: Forgot Password (`forgot.php`) - 3 Steps on Same Page
+- **Step 1:** Asks for registered email (`@gmail.com`). If found, creates 6-digit code with 10-minute expiry in `reset_codes`. If email sending is not configured on localhost demo, displays the code on screen for instant testing.
+- **Step 2:** Asks for the 6-digit code. Rejects invalid or expired codes.
+- **Step 3:** Asks for new password and confirmation (same password security rules: min 8 chars, 1 capital, 1 small, 1 number). Hashes and updates in `students`, deletes code from `reset_codes`, and redirects to Page 1 with green message **`Password changed. Please login.`**

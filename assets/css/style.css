@@ -1,68 +1,53 @@
 /* ==========================================================================
-   IP ASSIGNMENT - RESPONSIVE WEB APPLICATION STYLESHEET
-   Theme: White, Navy Blue, and Gold Accents
+   STUDENT PORTAL STYLESHEET
+   Theme: White (#FFFFFF), Navy Blue (#0B1F4B), Gold (#C9A227)
+   Buttons: Gold background with Navy text
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   1. CSS Custom Properties / Design Tokens
-   -------------------------------------------------------------------------- */
 :root {
-  /* Navy Blue Palette */
-  --navy-darkest: #071322;
-  --navy-primary: #0a192f;
-  --navy-secondary: #0f2744;
-  --navy-accent: #173b67;
-  --navy-light: #204a80;
-  --navy-muted: #486581;
+  --navy: #0B1F4B;
+  --navy-dark: #071533;
+  --navy-light: #16326d;
+  --navy-subtle: rgba(11, 31, 75, 0.06);
 
-  /* Gold Palette */
-  --gold-primary: #d4af37;
-  --gold-light: #f5cf62;
-  --gold-dark: #b8860b;
-  --gold-amber: #e5a93b;
-  --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f39c12 100%);
-  --gold-gradient-hover: linear-gradient(135deg, #f5cf62 0%, #d4af37 100%);
-  --gold-subtle: rgba(212, 175, 55, 0.12);
-  --gold-border: rgba(212, 175, 55, 0.35);
-  --gold-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+  --gold: #C9A227;
+  --gold-hover: #dfb634;
+  --gold-dark: #a88318;
+  --gold-subtle: rgba(201, 162, 39, 0.12);
 
-  /* White & Neutrals */
-  --bg-white: #ffffff;
-  --bg-surface: #f8fafc;
-  --bg-card: #ffffff;
-  --bg-subtle: #f1f5f9;
-  --border-light: #e2e8f0;
-  --border-color: #cbd5e1;
+  --white: #FFFFFF;
+  --bg-page: #FFFFFF;
+  --bg-surface: #F8FAFC;
+  --border-color: #CBD5E1;
+  --border-light: #E2E8F0;
 
-  /* Text Colors */
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --text-inverse: #ffffff;
-  --text-gold: #b8860b;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
 
-  /* Status Colors */
-  --status-success: #10b981;
-  --status-success-bg: #ecfdf5;
-  --status-success-border: #6ee7b7;
-  --status-danger: #ef4444;
-  --status-danger-bg: #fef2f2;
-  --status-danger-border: #fca5a5;
-  --status-info: #0284c7;
-  --status-info-bg: #f0f9ff;
+  --danger: #DC2626;
+  --danger-bg: #FEF2F2;
+  --danger-border: #FECACA;
 
-  /* Layout & Sizing */
-  --container-max: 1200px;
+  --success: #16A34A;
+  --success-bg: #F0FDF4;
+  --success-border: #BBF7D0;
+
   --radius-sm: 6px;
   --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-lg: 14px;
   --radius-full: 9999px;
-  --transition: all 0.25s ease-in-out;
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 16px rgba(11, 31, 75, 0.08);
+  --shadow-lg: 0 10px 30px rgba(11, 31, 75, 0.12);
+
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --transition: all 0.2s ease-in-out;
 }
 
 /* --------------------------------------------------------------------------
-   2. Reset & Global Styles
+   Reset & Base Styles
    -------------------------------------------------------------------------- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -76,9 +61,9 @@ html {
 }
 
 body {
-  font-family: var(--font-family);
-  background-color: var(--bg-white);
-  color: var(--text-primary);
+  font-family: var(--font);
+  background-color: var(--bg-page);
+  color: var(--text-main);
   line-height: 1.6;
   min-height: 100vh;
   display: flex;
@@ -99,210 +84,224 @@ a:hover {
   color: var(--gold-dark);
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
 .container {
   width: 100%;
-  max-width: var(--container-max);
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
 }
 
 /* --------------------------------------------------------------------------
-   3. Header & Navigation (Navy Blue + Gold Accents)
+   Header & Navigation (Navy Blue #0B1F4B with Gold Accents)
    -------------------------------------------------------------------------- */
 .site-header {
-  background-color: var(--navy-primary);
-  border-bottom: 3px solid var(--gold-primary);
-  box-shadow: 0 4px 12px rgba(10, 25, 47, 0.15);
+  background-color: var(--navy);
+  border-bottom: 3px solid var(--gold);
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 4px 14px rgba(7, 21, 51, 0.25);
 }
 
-.nav-container {
+.header-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
 }
 
-.logo-brand {
+.brand-group {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--text-inverse);
+  gap: 0.85rem;
   text-decoration: none;
 }
 
-.logo-brand:hover {
-  color: var(--gold-light);
-}
-
-.logo-icon {
-  width: 38px;
-  height: 38px;
-  background: var(--gold-gradient);
+.brand-logo-badge {
+  width: 44px;
+  height: 44px;
+  background-color: var(--gold);
+  color: var(--navy);
   border-radius: var(--radius-sm);
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--navy-darkest);
+  box-shadow: 0 2px 8px rgba(201, 162, 39, 0.4);
+}
+
+.brand-logo-badge-sm {
+  width: 36px;
+  height: 36px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-college {
+  font-size: 1.15rem;
   font-weight: 800;
-  font-size: 1.25rem;
-  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+  color: var(--white);
+  line-height: 1.2;
+  letter-spacing: 0.3px;
 }
 
-.logo-brand span.gold-text {
-  color: var(--gold-primary);
+.brand-portal {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
 }
 
-/* Navigation Links */
+/* Nav Menu */
 .nav-menu {
   display: flex;
   align-items: center;
-  list-style: none;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
-.nav-link {
-  color: #cbd5e1;
-  font-weight: 500;
-  font-size: 0.95rem;
-  padding: 0.5rem 0.75rem;
+.nav-item {
+  color: #E2E8F0;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.45rem 0.75rem;
   border-radius: var(--radius-sm);
   transition: var(--transition);
-  position: relative;
 }
 
-.nav-link:hover {
-  color: var(--gold-primary);
+.nav-item:hover {
+  color: var(--gold);
 }
 
-.nav-link.active {
-  color: var(--gold-light);
-  font-weight: 600;
+.nav-item.active {
+  color: var(--gold);
+  background: rgba(201, 162, 39, 0.12);
 }
 
-.nav-link.active::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0.75rem;
-  right: 0.75rem;
-  height: 2px;
-  background: var(--gold-primary);
-  border-radius: 2px;
-}
-
-.nav-actions {
-  display: flex;
+.user-pill {
+  display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Mobile Hamburger Toggle */
+.user-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--gold);
+  border-radius: 50%;
+}
+
+.btn-header-logout {
+  color: #FECACA;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(254, 202, 202, 0.3);
+}
+
+.btn-header-logout:hover {
+  background: rgba(220, 38, 38, 0.2);
+  color: var(--white);
+}
+
+/* Hamburger toggle */
 .mobile-toggle {
   display: none;
   background: none;
-  border: 1px solid var(--gold-border);
-  color: var(--text-inverse);
-  padding: 0.5rem 0.65rem;
+  border: 1.5px solid var(--gold);
   border-radius: var(--radius-sm);
+  padding: 0.5rem;
   cursor: pointer;
-  font-size: 1.25rem;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.mobile-toggle:hover {
-  background: var(--gold-subtle);
-  color: var(--gold-light);
+.mobile-toggle .bar {
+  width: 22px;
+  height: 2px;
+  background-color: var(--white);
+  transition: var(--transition);
 }
 
 /* --------------------------------------------------------------------------
-   4. Buttons (Navy Blue + Gold Accents)
+   Buttons (Theme: Gold button with Navy text)
    -------------------------------------------------------------------------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.65rem 1.4rem;
+  padding: 0.75rem 1.5rem;
+  font-family: inherit;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
   border-radius: var(--radius-sm);
   cursor: pointer;
   border: 2px solid transparent;
   transition: var(--transition);
   text-decoration: none;
   text-align: center;
+  line-height: 1.2;
 }
 
-/* Gold Button */
+/* Primary Button: Gold with Navy Text */
 .btn-gold {
-  background: var(--gold-gradient);
-  color: #0B1F4B;
-  border-color: var(--gold-primary);
-  font-weight: 700;
-  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+  background-color: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+  box-shadow: 0 3px 10px rgba(201, 162, 39, 0.3);
 }
 
 .btn-gold:hover {
-  background: var(--gold-gradient-hover);
-  color: #0B1F4B;
-  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.5);
-  transform: translateY(-2px);
+  background-color: var(--gold-hover);
+  color: var(--navy);
+  border-color: var(--gold-hover);
+  box-shadow: 0 5px 14px rgba(201, 162, 39, 0.45);
+  transform: translateY(-1px);
 }
 
-/* Navy Blue Button */
+/* Navy Button */
 .btn-navy {
-  background-color: var(--navy-secondary);
-  color: #ffffff;
-  border-color: var(--gold-primary);
+  background-color: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
 }
 
 .btn-navy:hover {
-  background-color: var(--navy-accent);
-  color: var(--gold-light);
-  border-color: var(--gold-light);
-  box-shadow: 0 4px 14px rgba(10, 25, 47, 0.25);
-  transform: translateY(-2px);
-}
-
-/* Outline Gold Button */
-.btn-outline-gold {
-  background: transparent;
-  color: var(--gold-primary);
-  border: 2px solid var(--gold-primary);
-}
-
-.btn-outline-gold:hover {
-  background: var(--gold-primary);
-  color: var(--navy-darkest);
-  box-shadow: var(--gold-shadow);
-  transform: translateY(-2px);
+  background-color: var(--navy-light);
+  color: var(--white);
+  border-color: var(--navy-light);
+  transform: translateY(-1px);
 }
 
 /* Outline Navy Button */
 .btn-outline-navy {
-  background: transparent;
-  color: #0B1F4B;
-  border: 2px solid #0B1F4B;
+  background-color: transparent;
+  color: var(--navy);
+  border: 2px solid var(--navy);
 }
 
 .btn-outline-navy:hover {
-  background: #0B1F4B;
-  color: #ffffff;
-  transform: translateY(-2px);
+  background-color: var(--navy);
+  color: var(--white);
+  transform: translateY(-1px);
 }
 
 .btn-sm {
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 1rem;
   font-size: 0.85rem;
 }
 
@@ -311,97 +310,43 @@ img {
 }
 
 /* --------------------------------------------------------------------------
-   5. Hero & Showcase Sections (Plain White Background with Thin Gold Line)
+   Form Cards & Input Styling
    -------------------------------------------------------------------------- */
-.hero-section {
-  background-color: #FFFFFF;
-  color: #0B1F4B;
-  padding: 5rem 0 4.5rem;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1.5px solid #C9A227;
-}
-
-.hero-section::before {
-  display: none;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 780px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(201, 162, 39, 0.08);
-  border: 1px solid #C9A227;
-  color: #0B1F4B;
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 0.35rem 1rem;
-  border-radius: var(--radius-full);
-  margin-bottom: 1.5rem;
-}
-
-.hero-title {
-  font-size: 2.85rem;
-  font-weight: 800;
-  line-height: 1.25;
-  margin-bottom: 1.25rem;
-  color: #0B1F4B;
-}
-
-.hero-title span.gold-highlight {
-  color: #C9A227;
-  background: none;
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: unset;
-}
-
-.hero-subtitle {
-  font-size: 1.15rem;
-  color: #0B1F4B;
-  margin-bottom: 2.25rem;
-  line-height: 1.7;
-  opacity: 0.9;
-}
-
-.hero-actions {
+.auth-page-wrapper {
+  background: var(--bg-surface);
+  min-height: calc(100vh - 72px);
+  padding: 3.5rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
 }
 
-/* --------------------------------------------------------------------------
-   Student Portal Hero & Homepage Login Card
-   -------------------------------------------------------------------------- */
-.portal-hero {
-  background-color: #FFFFFF;
-  padding: 3.5rem 0 4rem;
-  border-bottom: 2px solid #C9A227;
+.portal-card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-top: 5px solid var(--gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 480px;
+  padding: 2.5rem 2rem;
 }
 
-.portal-header-area {
+.portal-card-lg {
+  max-width: 600px;
+}
+
+.portal-card-header {
   text-align: center;
-  max-width: 650px;
-  margin: 0 auto 2.5rem;
+  margin-bottom: 2rem;
 }
 
-.portal-crest-circle {
-  width: 64px;
-  height: 64px;
-  background: #0B1F4B;
-  color: #C9A227;
-  border: 2px solid #C9A227;
+.header-icon-circle {
+  width: 58px;
+  height: 58px;
+  background-color: var(--navy);
+  color: var(--gold);
   border-radius: 50%;
-  font-size: 2rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -409,565 +354,15 @@ img {
   box-shadow: 0 4px 12px rgba(11, 31, 75, 0.15);
 }
 
-.portal-main-heading {
-  color: #0B1F4B;
-  font-size: 2.5rem;
+.portal-card-title {
+  color: var(--navy);
+  font-size: 1.75rem;
   font-weight: 800;
+  margin-bottom: 0.35rem;
   line-height: 1.2;
-  margin-bottom: 0.5rem;
 }
 
-.portal-sub-heading {
-  color: #64748b;
-  font-size: 1.05rem;
-  margin: 0;
-}
-
-.login-box-container {
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.student-login-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-top: 5px solid #C9A227;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 10px 25px -5px rgba(11, 31, 75, 0.08);
-  padding: 2.25rem 2rem;
-}
-
-.login-card-header {
-  text-align: center;
-  margin-bottom: 1.75rem;
-}
-
-.login-icon-badge {
-  font-size: 1.5rem;
-  color: #C9A227;
-  margin-bottom: 0.35rem;
-}
-
-.login-title {
-  color: #0B1F4B;
-  font-size: 1.6rem;
-  font-weight: 800;
-  margin-bottom: 0.35rem;
-}
-
-.login-subtitle {
-  color: #64748b;
-  font-size: 0.9rem;
-  margin: 0;
-}
-
-.demo-login-box {
-  background: #F8FAFC;
-  border: 1px dashed #C9A227;
-  border-radius: var(--radius-sm);
-  padding: 0.85rem 1rem;
-  margin-bottom: 1.5rem;
-  font-size: 0.85rem;
-}
-
-.demo-login-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.4rem;
-  font-weight: 700;
-  color: #0B1F4B;
-}
-
-.demo-login-body code {
-  background: #FFFFFF;
-  border: 1px solid #CBD5E1;
-  padding: 0.15rem 0.4rem;
-  border-radius: 4px;
-  font-family: monospace;
-}
-
-.demo-link-btn {
-  background: none;
-  border: none;
-  color: #173b67;
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: underline;
-  padding: 0;
-}
-
-.demo-link-btn:hover {
-  color: #C9A227;
-}
-
-.label-hint {
-  font-weight: 400;
-  font-size: 0.8rem;
-  color: #64748b;
-  margin-left: 0.35rem;
-}
-
-.forgot-link {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #173b67;
-  text-decoration: none;
-}
-
-.forgot-link:hover {
-  color: #C9A227;
-  text-decoration: underline;
-}
-
-.create-account-prompt {
-  text-align: center;
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid #E2E8F0;
-  font-size: 0.92rem;
-  color: #64748b;
-}
-
-.create-account-link {
-  font-weight: 700;
-  color: #0B1F4B;
-  text-decoration: underline;
-  margin-left: 0.35rem;
-}
-
-.create-account-link:hover {
-  color: #C9A227;
-}
-
-/* --------------------------------------------------------------------------
-   Digital Student ID Card Styles
-   -------------------------------------------------------------------------- */
-.digital-id-card {
-  background: #FFFFFF;
-  border: 1.5px solid #CBD5E1;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(11, 31, 75, 0.08);
-}
-
-.id-card-header {
-  background: #0B1F4B;
-  color: #FFFFFF;
-  padding: 1rem 1.25rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 3px solid #C9A227;
-}
-
-.id-card-body {
-  padding: 1.75rem 1.5rem;
-}
-
-.id-photo-box {
-  width: 90px;
-  height: 105px;
-  background: #F1F5F9;
-  border: 2px solid #CBD5E1;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-}
-
-.id-photo-caption {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #64748b;
-  letter-spacing: 1px;
-}
-
-.id-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-}
-
-.id-table tr {
-  border-bottom: 1px solid #F1F5F9;
-}
-
-.id-label {
-  padding: 0.6rem 0;
-  font-weight: 600;
-  color: #0B1F4B;
-  width: 38%;
-}
-
-.id-value {
-  padding: 0.6rem 0;
-  color: #334155;
-}
-
-.id-value code {
-  background: #F8FAFC;
-  padding: 0.15rem 0.35rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-}
-
-.id-barcode-section {
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px dashed #CBD5E1;
-  text-align: center;
-}
-
-.barcode-graphic {
-  font-family: monospace;
-  font-size: 1.15rem;
-  letter-spacing: 2.5px;
-  color: #0B1F4B;
-  font-weight: 700;
-}
-
-/* --------------------------------------------------------------------------
-   Student Home Page Sections
-   -------------------------------------------------------------------------- */
-.student-section {
-  padding: 4.5rem 0;
-  background-color: #FFFFFF;
-}
-
-.student-section-alt {
-  background-color: #F8FAFC;
-  border-top: 1px solid #E2E8F0;
-  border-bottom: 1px solid #E2E8F0;
-}
-
-.student-section-header {
-  text-align: center;
-  margin-bottom: 2.75rem;
-}
-
-.student-section-header-left {
-  text-align: left;
-  margin-bottom: 1.5rem;
-}
-
-.student-section-title {
-  color: #0B1F4B;
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-/* Section A: 4 Cards Grid */
-.student-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-}
-
-.student-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: var(--radius-md);
-  padding: 1.75rem 1.5rem;
-  transition: var(--transition);
-}
-
-.student-card:hover {
-  border-color: #C9A227;
-}
-
-.student-card-icon {
-  width: 44px;
-  height: 44px;
-  background-color: #0B1F4B;
-  color: #C9A227;
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  margin-bottom: 1.25rem;
-}
-
-.student-card-title {
-  color: #0B1F4B;
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.student-card-text {
-  color: #475569;
-  font-size: 0.92rem;
-  line-height: 1.55;
-  margin: 0;
-}
-
-/* Section B: How to log in (3 Steps) */
-.student-steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
-  margin-bottom: 2.5rem;
-}
-
-.student-step-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: var(--radius-md);
-  padding: 2rem 1.5rem;
-  text-align: center;
-}
-
-.student-step-number {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto 1.25rem;
-  background-color: #0B1F4B;
-  color: #C9A227;
-  border: 1.5px solid #C9A227;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.student-step-text {
-  color: #475569;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin: 0;
-}
-
-.student-steps-action {
-  text-align: center;
-}
-
-/* Section C & D Container */
-.student-content-container {
-  display: grid;
-  grid-template-columns: 1.6fr 1.2fr;
-  gap: 2.5rem;
-  align-items: start;
-}
-
-/* Section C: Notice board */
-.student-notices-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.student-notice-item {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-left: 4px solid #C9A227;
-  border-radius: var(--radius-md);
-  padding: 1.15rem 1.4rem;
-}
-
-.student-notice-date {
-  font-weight: 700;
-  color: #0B1F4B;
-  background-color: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  white-space: nowrap;
-}
-
-.student-notice-text {
-  color: #1E293B;
-  font-size: 0.95rem;
-  font-weight: 500;
-}
-
-/* Section D: Password tips */
-.student-password-box {
-  background: #FFFFFF;
-  border: 1.5px solid rgba(11, 31, 75, 0.2);
-  border-radius: var(--radius-md);
-  padding: 1.75rem;
-  margin-top: 3.5rem;
-}
-
-.student-password-title {
-  color: #0B1F4B;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.student-password-text {
-  color: #475569;
-  font-size: 0.92rem;
-  line-height: 1.65;
-  margin: 0;
-}
-
-/* Section E: Need help? strip */
-.student-help-strip {
-  background-color: #0B1F4B;
-  color: #FFFFFF;
-  padding: 2.5rem 0;
-  border-top: 2px solid #C9A227;
-}
-
-.student-help-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.student-help-text {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #FFFFFF;
-  margin: 0;
-}
-
-/* --------------------------------------------------------------------------
-   6. Cards & Section Components
-   -------------------------------------------------------------------------- */
-.section-padding {
-  padding: 4.5rem 0;
-}
-
-.section-header {
-  text-align: center;
-  max-width: 650px;
-  margin: 0 auto 3rem;
-}
-
-.section-tag {
-  color: var(--gold-dark);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  display: inline-block;
-}
-
-.section-title {
-  color: var(--navy-primary);
-  font-size: 2.15rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-}
-
-.section-subtitle {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-}
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  transition: var(--transition);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  position: relative;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px -4px rgba(10, 25, 47, 0.1);
-  border-color: var(--gold-primary);
-}
-
-.card-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-sm);
-  background: var(--navy-secondary);
-  border: 1px solid var(--gold-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold-primary);
-  font-size: 1.5rem;
-  margin-bottom: 1.25rem;
-}
-
-.card-title {
-  color: var(--navy-primary);
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-}
-
-.card-text {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* --------------------------------------------------------------------------
-   7. Form Styling & Real-time Validation Feedback
-   -------------------------------------------------------------------------- */
-.auth-wrapper {
-  min-height: calc(100vh - 180px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 1.5rem;
-  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-}
-
-.form-card {
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  border-top: 5px solid var(--gold-primary);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 10px 30px rgba(10, 25, 47, 0.08);
-  width: 100%;
-  max-width: 480px;
-  padding: 2.5rem;
-}
-
-.form-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.form-header h2 {
-  color: var(--navy-primary);
-  font-size: 1.85rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.form-header p {
+.portal-card-subtitle {
   color: var(--text-muted);
   font-size: 0.95rem;
 }
@@ -979,64 +374,518 @@ img {
 
 .form-label {
   display: block;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.9rem;
-  color: var(--navy-secondary);
+  color: var(--navy);
   margin-bottom: 0.45rem;
 }
 
-.form-label .required-star {
-  color: var(--status-danger);
+.form-label .req {
+  color: var(--danger);
+  margin-left: 2px;
 }
 
-.input-wrapper {
-  position: relative;
+.form-label .hint {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-left: 0.35rem;
 }
 
-.form-input, .form-select, .form-textarea {
+.form-input, .form-textarea, .form-select {
   width: 100%;
   padding: 0.75rem 1rem;
+  font-family: inherit;
   font-size: 0.95rem;
-  color: var(--text-primary);
-  background-color: #ffffff;
+  color: var(--text-main);
+  background-color: var(--white);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-sm);
   outline: none;
   transition: var(--transition);
-  font-family: inherit;
 }
 
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-  border-color: var(--gold-primary);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.25);
 }
 
-/* Valid Input State */
+/* Valid & Invalid states */
 .form-input.is-valid {
-  border-color: var(--status-success) !important;
-  background-color: #fafffc;
+  border-color: var(--success);
+  background-color: var(--success-bg);
 }
 
-/* Invalid Input State */
 .form-input.is-invalid {
-  border-color: var(--status-danger) !important;
-  background-color: #fffaf9;
+  border-color: var(--danger);
+  background-color: var(--danger-bg);
 }
 
-.validation-feedback {
+/* Error text under fields */
+.field-error {
+  color: var(--danger);
   font-size: 0.82rem;
+  font-weight: 600;
   margin-top: 0.35rem;
-  display: none;
-}
-
-.validation-feedback.error {
-  color: var(--status-danger);
   display: block;
 }
 
-.validation-feedback.success {
-  color: var(--status-success);
+.field-success {
+  color: var(--success);
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-top: 0.35rem;
   display: block;
+}
+
+/* Alerts */
+.alert {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.35rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.alert-danger {
+  background-color: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  color: #991B1B;
+}
+
+.alert-success {
+  background-color: var(--success-bg);
+  border: 1px solid var(--success-border);
+  color: #166534;
+}
+
+.alert-demo {
+  background-color: #EFF6FF;
+  border: 1.5px dashed #3B82F6;
+  color: #1E3A8A;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.demo-code-display {
+  font-family: monospace;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 5px;
+  color: var(--navy);
+  margin: 0.35rem 0;
+}
+
+/* Quick test pill */
+.quick-test-box {
+  background: var(--bg-surface);
+  border: 1px dashed var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.82rem;
+}
+
+.quick-test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.25rem;
+}
+
+.quick-btn {
+  background: none;
+  border: none;
+  color: var(--navy-light);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.quick-btn:hover {
+  color: var(--gold-dark);
+}
+
+/* --------------------------------------------------------------------------
+   Registration Success (success.php)
+   -------------------------------------------------------------------------- */
+.success-card {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  max-width: 620px;
+  width: 100%;
+  padding: 2.75rem 2.25rem;
+}
+
+.success-icon-badge {
+  width: 68px;
+  height: 68px;
+  background-color: var(--success-bg);
+  border: 2px solid var(--success);
+  color: var(--success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.profile-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0 2rem;
+  background: var(--white);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.profile-summary-table tr {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.profile-summary-table tr:last-child {
+  border-bottom: none;
+}
+
+.profile-summary-table td {
+  padding: 0.85rem 1.25rem;
+  font-size: 0.95rem;
+}
+
+.profile-summary-table .col-label {
+  font-weight: 700;
+  color: var(--navy);
+  width: 38%;
+  background: var(--bg-surface);
+}
+
+.profile-summary-table .col-value {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Student Dashboard (dashboard.php)
+   -------------------------------------------------------------------------- */
+.dashboard-banner {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: var(--white);
+  padding: 2.75rem 0;
+  border-bottom: 3px solid var(--gold);
+}
+
+.dash-user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.dash-avatar-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.dash-avatar {
+  width: 64px;
+  height: 64px;
+  background: var(--gold);
+  color: var(--navy);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(201, 162, 39, 0.4);
+}
+
+.dash-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.2;
+}
+
+.dash-sub {
+  color: #CBD5E1;
+  font-size: 0.92rem;
+  margin-top: 0.25rem;
+}
+
+.dash-content-area {
+  padding: 3rem 0;
+  background-color: var(--bg-surface);
+}
+
+/* 4 Quick Link Cards Grid */
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.portal-action-card {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.75rem 1.25rem;
+  transition: var(--transition);
+  text-decoration: none;
+  display: block;
+}
+
+.portal-action-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-md);
+}
+
+.action-card-icon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--navy);
+  color: var(--gold);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.action-card-title {
+  color: var(--navy);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.action-card-desc {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* Profile Card & Notice Board 2-Column Grid */
+.dash-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+}
+
+.content-box {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.content-box-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--navy);
+  padding-bottom: 0.85rem;
+  border-bottom: 2px solid var(--border-light);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.notice-item {
+  background: var(--bg-surface);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1rem 1.15rem;
+}
+
+.notice-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--navy-light);
+  margin-bottom: 0.35rem;
+}
+
+.notice-headline {
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.notice-desc {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background-color: var(--navy-dark);
+  color: #94A3B8;
+  border-top: 3px solid var(--gold);
+  padding: 3rem 0 1.5rem;
+  margin-top: auto;
+}
+
+.footer-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.footer-college {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--white);
+}
+
+.footer-tagline {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+.footer-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #CBD5E1;
+}
+
+.footer-title {
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.footer-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 28px;
+  height: 2px;
+  background-color: var(--gold);
+}
+
+.footer-link-list {
+  list-style: none;
+}
+
+.footer-link-list li {
+  margin-bottom: 0.5rem;
+  font-size: 0.88rem;
+}
+
+.footer-link-list a {
+  color: #94A3B8;
+}
+
+.footer-link-list a:hover {
+  color: var(--gold);
+  padding-left: 3px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.82rem;
+}
+
+/* --------------------------------------------------------------------------
+   Step Indicator for forgot.php
+   -------------------------------------------------------------------------- */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.step-bubble {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 2px solid var(--border-color);
+  color: var(--text-muted);
+  background: var(--white);
+}
+
+.step-bubble.active {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.step-bubble.completed {
+  border-color: var(--success);
+  background: var(--success);
+  color: var(--white);
+}
+
+.step-line {
+  flex: 1;
+  max-width: 40px;
+  height: 2px;
+  background-color: var(--border-color);
+}
+
+.step-line.active {
+  background-color: var(--gold);
 }
 
 /* Shake Animation for Invalid Submission */
@@ -1050,304 +899,24 @@ img {
   animation: shakeAnimation 0.45s ease-in-out;
 }
 
-/* Alerts / Banners */
-.alert {
-  padding: 1rem 1.25rem;
-  border-radius: var(--radius-sm);
-  margin-bottom: 1.5rem;
-  font-size: 0.92rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  line-height: 1.5;
-}
-
-.alert-danger {
-  background-color: var(--status-danger-bg);
-  border: 1px solid var(--status-danger-border);
-  color: #991b1b;
-}
-
-.alert-success {
-  background-color: var(--status-success-bg);
-  border: 1px solid var(--status-success-border);
-  color: #065f46;
-}
-
-.alert-info {
-  background-color: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  color: #166534;
-}
-
-.alert-gold {
-  background-color: #fffdf5;
-  border: 1px solid var(--gold-border);
-  color: #78350f;
-}
-
-/* Demo Credential Box */
-.demo-box {
-  background: var(--bg-subtle);
-  border: 1px dashed var(--gold-primary);
-  border-radius: var(--radius-sm);
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  font-size: 0.85rem;
-}
-
-.demo-box-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  color: var(--navy-secondary);
-  font-weight: 700;
-}
-
-.demo-code {
-  font-family: monospace;
-  background: #ffffff;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  border: 1px solid #e2e8f0;
-}
-
 /* --------------------------------------------------------------------------
-   8. User Dashboard & Stats Components
-   -------------------------------------------------------------------------- */
-.dashboard-header {
-  background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
-  color: #ffffff;
-  padding: 2.75rem 0;
-  border-bottom: 3px solid var(--gold-primary);
-}
-
-.dash-user-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.dash-avatar-group {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.avatar-circle {
-  width: 64px;
-  height: 64px;
-  border-radius: var(--radius-full);
-  background: var(--gold-gradient);
-  color: var(--navy-darkest);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.75rem;
-  font-weight: 800;
-  border: 3px solid #ffffff;
-  box-shadow: var(--gold-shadow);
-}
-
-.dash-stat-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
-  margin: -2rem 0 2.5rem;
-}
-
-.stat-card {
-  background: #ffffff;
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
-  box-shadow: 0 4px 16px rgba(10, 25, 47, 0.08);
-  border-top: 4px solid var(--gold-primary);
-  display: flex;
-  flex-direction: column;
-}
-
-.stat-label {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  font-weight: 600;
-  margin-bottom: 0.35rem;
-}
-
-.stat-value {
-  color: var(--navy-primary);
-  font-size: 1.75rem;
-  font-weight: 700;
-}
-
-/* --------------------------------------------------------------------------
-   9. Tables
-   -------------------------------------------------------------------------- */
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  background: #ffffff;
-}
-
-.custom-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-.custom-table th {
-  background-color: var(--navy-secondary);
-  color: #ffffff;
-  font-weight: 600;
-  padding: 0.9rem 1rem;
-  font-size: 0.9rem;
-  border-bottom: 2px solid var(--gold-primary);
-}
-
-.custom-table td {
-  padding: 0.85rem 1rem;
-  border-bottom: 1px solid var(--border-light);
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.custom-table tr:hover {
-  background-color: var(--bg-subtle);
-}
-
-/* Status Badges */
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.65rem;
-  border-radius: var(--radius-full);
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.status-badge.connected {
-  background: #ecfdf5;
-  color: #065f46;
-  border: 1px solid #a7f3d0;
-}
-
-.status-badge.error {
-  background: #fef2f2;
-  color: #991b1b;
-  border: 1px solid #fecaca;
-}
-
-.status-badge .dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: currentColor;
-}
-
-/* --------------------------------------------------------------------------
-   10. Footer (Navy Blue + Gold Accents)
-   -------------------------------------------------------------------------- */
-.site-footer {
-  background-color: var(--navy-darkest);
-  color: #94a3b8;
-  border-top: 3px solid var(--gold-primary);
-  padding: 3rem 0 1.5rem;
-  margin-top: auto;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 2.5rem;
-  margin-bottom: 2.5rem;
-}
-
-.footer-heading {
-  color: #ffffff;
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-.footer-heading::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 32px;
-  height: 2px;
-  background: var(--gold-primary);
-}
-
-.footer-links {
-  list-style: none;
-}
-
-.footer-links li {
-  margin-bottom: 0.5rem;
-}
-
-.footer-links a {
-  color: #94a3b8;
-  font-size: 0.9rem;
-}
-
-.footer-links a:hover {
-  color: var(--gold-light);
-  padding-left: 4px;
-}
-
-.footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  font-size: 0.85rem;
-}
-
-/* --------------------------------------------------------------------------
-   11. Responsive Media Queries
+   Responsive Media Queries
    -------------------------------------------------------------------------- */
 @media (max-width: 992px) {
-  .hero-title {
-    font-size: 2.25rem;
-  }
-  .student-cards-grid {
+  .quick-links-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .student-content-container {
+  .dash-layout-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  .student-password-box {
-    margin-top: 0;
-  }
-  .grid-3 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .dash-stat-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
   }
 }
 
 @media (max-width: 768px) {
   .mobile-toggle {
-    display: block;
+    display: flex;
   }
 
   .nav-menu {
@@ -1356,85 +925,38 @@ img {
     top: 72px;
     left: 0;
     right: 0;
-    background-color: var(--navy-secondary);
+    background-color: var(--navy);
     flex-direction: column;
     padding: 1.5rem;
     gap: 1rem;
-    border-bottom: 2px solid var(--gold-primary);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid var(--gold);
+    box-shadow: var(--shadow-lg);
   }
 
   .nav-menu.open {
     display: flex;
   }
 
-  .nav-link {
+  .nav-item {
     width: 100%;
     padding: 0.75rem 1rem;
   }
 
-  .nav-link.active::after {
-    display: none;
-  }
-
-  .student-cards-grid {
+  .quick-links-grid {
     grid-template-columns: 1fr;
-  }
-
-  .student-steps-grid {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .student-section-title {
-    font-size: 1.65rem;
-  }
-
-  .student-notice-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .student-help-container {
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .grid-3, .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .dash-stat-grid {
-    grid-template-columns: 1fr;
-    margin-top: 1.5rem;
-  }
-
-  .hero-section {
-    padding: 3.5rem 0 3rem;
-  }
-
-  .hero-title {
-    font-size: 1.85rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1rem;
-  }
-
-  .form-card {
-    padding: 1.75rem;
   }
 
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 1.75rem;
+    gap: 2rem;
   }
 
   .footer-bottom {
     flex-direction: column;
     text-align: center;
   }
-}
 
+  .portal-card {
+    padding: 2rem 1.5rem;
+  }
+}

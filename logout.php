@@ -3,10 +3,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Unset session variables
+// Unset all session variables
 $_SESSION = [];
 
-// Destroy session cookie if set
+// Delete session cookie if present
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(
@@ -23,10 +23,6 @@ if (ini_get("session.use_cookies")) {
 // Destroy session
 session_destroy();
 
-// Start fresh session for flash message
-session_start();
-$_SESSION['flash_message'] = "You have been logged out successfully. Enter your Name, Email ID, and Password to log back in.";
-
-header("Location: login.php");
+// Redirect to Page 1 (Home Page = Login)
+header("Location: index.php");
 exit();
-
