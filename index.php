@@ -33,134 +33,108 @@ include __DIR__ . '/includes/navbar.php';
     </div>
   </section>
 
-  <!-- Project Requirements Alignment Banner -->
-  <section style="background-color: #f1f5f9; border-bottom: 1px solid var(--border-light); padding: 1.25rem 0;">
-    <div class="container" style="display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem; font-weight: 600; color: var(--navy-secondary);">
-      <div><span style="color: var(--gold-dark);">&#10004;</span> 5 Complete Web Pages</div>
-      <div><span style="color: var(--gold-dark);">&#10004;</span> PHP 8 Backend</div>
-      <div><span style="color: var(--gold-dark);">&#10004;</span> MySQL / Database Connectivity</div>
-      <div><span style="color: var(--gold-dark);">&#10004;</span> Real-Time & Server Form Validation</div>
-      <div><span style="color: var(--gold-dark);">&#10004;</span> Name + Email + Password Login</div>
-      <div><span style="color: var(--gold-dark);">&#10004;</span> White, Navy & Gold Theme</div>
-    </div>
-  </section>
-
-  <!-- Features Section (White Background, Navy Cards with Gold Icons) -->
-  <section class="section-padding" id="features">
+  <!-- Section A: What you can do after logging in -->
+  <section class="student-section">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Core Specifications</span>
-        <h2 class="section-title">Assignment Architecture & Modules</h2>
-        <p class="section-subtitle">
-          Every requirement from the IP assignment prompt implemented with production-grade coding standards.
-        </p>
+      <div class="student-section-header">
+        <h2 class="student-section-title">What you can do after logging in</h2>
       </div>
-
-      <div class="grid-3">
-        <!-- Card 1 -->
-        <div class="card">
-          <div class="card-icon">&#128241;</div>
-          <h3 class="card-title">100% Responsive Design</h3>
-          <p class="card-text">
-            Built from the ground up using pure CSS3 Flexbox and CSS Grid. Seamlessly adapts from small mobile screens (320px) to wide 4K displays with a responsive mobile drawer menu.
-          </p>
+      <div class="student-cards-grid">
+        <div class="student-card">
+          <div class="student-card-icon">&#128100;</div>
+          <h3 class="student-card-title">My Profile</h3>
+          <p class="student-card-text">View your name, email and student details.</p>
         </div>
-
-        <!-- Card 2 -->
-        <div class="card">
-          <div class="card-icon">&#128272;</div>
-          <h3 class="card-title">3-Field Authentication</h3>
-          <p class="card-text">
-            Specialized login verification requiring <strong>Full Name, Email ID, and Password</strong>. Validates both frontend format and backend database records with distinct valid and invalid feedback banners.
-          </p>
+        <div class="student-card">
+          <div class="student-card-icon">&#128218;</div>
+          <h3 class="student-card-title">Course Materials</h3>
+          <p class="student-card-text">Find notes and reading lists for your subjects.</p>
         </div>
-
-        <!-- Card 3 -->
-        <div class="card">
-          <div class="card-icon">&#128451;</div>
-          <h3 class="card-title">Database Connectivity</h3>
-          <p class="card-text">
-            Supports standard MySQL via MySQLi/PDO with parameterized prepared statements preventing SQL injection attacks, supplemented with instant auto-fallback to SQLite.
-          </p>
+        <div class="student-card">
+          <div class="student-card-icon">&#128197;</div>
+          <h3 class="student-card-title">Notices and Deadlines</h3>
+          <p class="student-card-text">See college announcements and submission dates.</p>
         </div>
-
-        <!-- Card 4 -->
-        <div class="card">
-          <div class="card-icon">&#9989;</div>
-          <h3 class="card-title">Strict Form Validation</h3>
-          <p class="card-text">
-            Dual-tier validation (instant JavaScript client feedback + bulletproof PHP server-side validation) applied across Login, Registration, and Contact pages with custom error highlights.
-          </p>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="card">
-          <div class="card-icon">&#127912;</div>
-          <h3 class="card-title">Navy Blue & Gold Theme</h3>
-          <p class="card-text">
-            Sophisticated aesthetic featuring crisp white content backgrounds, royal navy blue headers and structural containers, complemented by metallic gold buttons, badges, and borders.
-          </p>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="card">
-          <div class="card-icon">&#128100;</div>
-          <h3 class="card-title">Session-Based Portal</h3>
-          <p class="card-text">
-            Authenticated sessions store user credentials securely, granting access to a protected user dashboard displaying live database stats, activity logs, and one-click logout.
-          </p>
+        <div class="student-card">
+          <div class="student-card-icon">&#128172;</div>
+          <h3 class="student-card-title">Help Desk</h3>
+          <p class="student-card-text">Send a question to the office from the Contact page.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Quick Project Stats -->
-  <section style="background-color: var(--navy-primary); color: #ffffff; padding: 3.5rem 0; border-top: 2px solid var(--gold-primary); border-bottom: 2px solid var(--gold-primary);">
+  <!-- Section B: How to log in -->
+  <section class="student-section student-section-alt">
     <div class="container">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
-        <div>
-          <div style="font-size: 2.75rem; font-weight: 800; color: var(--gold-light);">5</div>
-          <div style="color: #cbd5e1; font-size: 0.95rem; font-weight: 600;">Full Web Pages</div>
+      <div class="student-section-header">
+        <h2 class="student-section-title">How to log in</h2>
+      </div>
+      <div class="student-steps-grid">
+        <div class="student-step-card">
+          <div class="student-step-number">1</div>
+          <p class="student-step-text">Create your account with your name, email and a strong password.</p>
         </div>
-        <div>
-          <div style="font-size: 2.75rem; font-weight: 800; color: var(--gold-light);">3</div>
-          <div style="color: #cbd5e1; font-size: 0.95rem; font-weight: 600;">Login Credentials Required</div>
+        <div class="student-step-card">
+          <div class="student-step-number">2</div>
+          <p class="student-step-text">Log in using the same name, email and password.</p>
         </div>
-        <div>
-          <div style="font-size: 2.75rem; font-weight: 800; color: var(--gold-light);">100%</div>
-          <div style="color: #cbd5e1; font-size: 0.95rem; font-weight: 600;">Responsive Mobile Ready</div>
+        <div class="student-step-card">
+          <div class="student-step-number">3</div>
+          <p class="student-step-text">Open your dashboard to see your details.</p>
         </div>
-        <div>
-          <div style="font-size: 2.75rem; font-weight: 800; color: var(--gold-light);">PDO/MySQL</div>
-          <div style="color: #cbd5e1; font-size: 0.95rem; font-weight: 600;">Secure Database Engine</div>
-        </div>
+      </div>
+      <div class="student-steps-action">
+        <a href="login.php" class="btn btn-gold">Student Login</a>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Call-To-Action Banner -->
-  <section class="section-padding" style="background-color: var(--bg-surface);">
-    <div class="container" style="text-align: center; max-width: 720px;">
-      <h2 style="font-size: 2rem; color: var(--navy-primary); margin-bottom: 1rem;">
-        Ready to evaluate the assignment?
-      </h2>
-      <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem;">
-        Test valid and invalid login scenarios, register a new user into the database, or inspect the backend database connectivity diagnostics.
-      </p>
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="login.php" class="btn btn-gold" style="font-size: 1rem; padding: 0.8rem 1.75rem;">
-          &#128273; Open Login Form
-        </a>
-        <a href="register.php" class="btn btn-navy" style="font-size: 1rem; padding: 0.8rem 1.75rem;">
-          &#9997; Register New Account
-        </a>
-        <a href="setup.php" class="btn btn-outline-navy" style="font-size: 1rem; padding: 0.8rem 1.75rem;">
-          &#9881; Database Diagnostic Tool
-        </a>
+  <!-- Section C: Notice board & Section D: Password tips -->
+  <section class="student-section">
+    <div class="container student-content-container">
+      
+      <!-- C. Notice board -->
+      <div class="student-notices-block">
+        <div class="student-section-header-left">
+          <h2 class="student-section-title">Notice board</h2>
+        </div>
+        <div class="student-notices-list">
+          <div class="student-notice-item">
+            <span class="student-notice-date">Nov 05</span>
+            <span class="student-notice-text">Internal exam timetable published.</span>
+          </div>
+          <div class="student-notice-item">
+            <span class="student-notice-date">Nov 12</span>
+            <span class="student-notice-text">Library timing changed for exam week.</span>
+          </div>
+          <div class="student-notice-item">
+            <span class="student-notice-date">Nov 20</span>
+            <span class="student-notice-text">Last date to submit project reports.</span>
+          </div>
+        </div>
       </div>
+
+      <!-- D. Password tips -->
+      <div class="student-password-block">
+        <div class="student-password-box">
+          <h3 class="student-password-title">&#128274; Password tips</h3>
+          <p class="student-password-text">
+            Use at least 8 characters with uppercase, lowercase, a number and a special character such as @ # $ %. Never share your password.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section E: Need help? strip -->
+  <section class="student-help-strip">
+    <div class="container student-help-container">
+      <p class="student-help-text">Forgot something or facing a problem? Contact the help desk.</p>
+      <a href="contact.php" class="btn btn-gold">Contact Us</a>
     </div>
   </section>
 </main>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
-
