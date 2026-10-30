@@ -108,7 +108,7 @@ http://localhost/student-portal/
 
 | Field | Value |
 | :--- | :--- |
-| **Student ID** | `20240101` |
+| **Student ID** | `2024-01-01` (or `20240101`) |
 | **Password** | `Password123` |
 | **Name** | Aswani Ravi |
 | **Email** | `aswani123@gmail.com` |

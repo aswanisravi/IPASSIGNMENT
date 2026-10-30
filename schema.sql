@@ -28,16 +28,17 @@ CREATE TABLE IF NOT EXISTS `reset_codes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 3. Demo Student Account for Instant Evaluation:
--- Student ID: 20240101
+-- Student ID: 2024-01-01 (or 20240101)
 -- Name: Aswani Ravi
 -- Email: aswani123@gmail.com
 -- Password: Password123 (Password meets rule: 8+ chars, capital, small, number)
 INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `password_hash`)
 VALUES (
-  '20240101',
+  '2024-01-01',
   'Aswani',
   'Ravi',
   'aswani123@gmail.com',
-  '$2y$10$wE3/qQJ6m1wS8xPcqYjY7.0xK63q.qAfePsmk.YQ8K24vA2L9K6m.'
+  '$2y$10$hO5fBJsFXCQg1ypQl/VykeIB1rI08rB1TQGwKzk1CetZpqXwgy9fO'
 )
-ON DUPLICATE KEY UPDATE `student_id` = `student_id`;
+ON DUPLICATE KEY UPDATE `password_hash` = VALUES(`password_hash`), `student_id` = VALUES(`student_id`);
+

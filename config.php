@@ -33,3 +33,4 @@ define('SMTP_FROM_NAME', 'Student Portal Administration');
 // -------------------------------------------------------------
 define('COLLEGE_NAME', 'Apex Institute of Technology');
 define('PORTAL_NAME', 'Student Portal');
+

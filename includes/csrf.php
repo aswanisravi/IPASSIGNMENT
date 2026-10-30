@@ -34,3 +34,4 @@ function verify_csrf_token($submitted_token) {
     }
     return hash_equals($_SESSION['csrf_token'], $submitted_token);
 }
+

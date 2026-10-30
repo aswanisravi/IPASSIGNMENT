@@ -74,3 +74,4 @@ include __DIR__ . '/includes/header.php';
 // Once displayed, we can keep or clean the registration session so it doesn't linger indefinitely
 include __DIR__ . '/includes/footer.php'; 
 ?>
+

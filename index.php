@@ -29,9 +29,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error_message = "Please enter both your Student ID and Password.";
         } else {
             $pdo = get_pdo();
+
+            // Support matching with or without hyphens (e.g., 2024-01-01 or 20240101)
+            $clean_id = str_replace(['-', ' '], '', $entered_student_id);
+            $hyphen_id = (strlen($clean_id) === 8)
+                ? substr($clean_id, 0, 4) . '-' . substr($clean_id, 4, 2) . '-' . substr($clean_id, 6, 2)
+                : $entered_student_id;
+
             // Query by student_id using prepared statement
-            $stmt = $pdo->prepare("SELECT * FROM students WHERE student_id = ? LIMIT 1");
-            $stmt->execute([$entered_student_id]);
+            $stmt = $pdo->prepare("SELECT * FROM students WHERE student_id = ? OR student_id = ? OR student_id = ? LIMIT 1");
+            $stmt->execute([$entered_student_id, $clean_id, $hyphen_id]);
             $student = $stmt->fetch();
 
             if ($student) {
@@ -78,12 +85,12 @@ include __DIR__ . '/includes/header.php';
     <!-- Quick Test Credentials Box -->
     <div class="quick-test-box">
       <div class="quick-test-header">
-        <span>Quick Test Account</span>
-        <button type="button" class="quick-btn" onclick="document.getElementById('login_student_id').value='20240101'; document.getElementById('login_password').value='Password123';">
+        <span>Demo Account Credentials</span>
+        <button type="button" class="quick-btn" id="demoAutoFillBtn" onclick="fillDemoCredentials();">
           Auto-Fill Demo
         </button>
       </div>
-      <div>ID: <code>20240101</code> &bull; Pass: <code>Password123</code></div>
+      <div>Student ID: <code>2024-01-01</code> &bull; Password: <code>Password123</code></div>
     </div>
 
     <!-- Green Success Alert (e.g. Password changed) -->
@@ -157,5 +164,26 @@ include __DIR__ . '/includes/header.php';
 
   </div>
 </main>
+
+<script>
+function fillDemoCredentials() {
+  const sid = document.getElementById('login_student_id');
+  const pwd = document.getElementById('login_password');
+  if (sid) {
+    sid.value = '2024-01-01';
+    sid.classList.remove('is-invalid');
+    sid.classList.add('is-valid');
+  }
+  if (pwd) {
+    pwd.value = 'Password123';
+    pwd.classList.remove('is-invalid');
+    pwd.classList.add('is-valid');
+  }
+  const errorElems = document.querySelectorAll('.field-error');
+  errorElems.forEach(function(el) {
+    el.style.display = 'none';
+  });
+}
+</script>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>

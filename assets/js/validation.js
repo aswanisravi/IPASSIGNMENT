@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const val = this.value.trim();
         if (!val) {
           setFieldState(this, false, 'Student ID is required.');
-        } else if (!/^\d+$/.test(val)) {
+        } else if (!/^[\d-]+$/.test(val)) {
           setFieldState(this, false, 'Student ID must contain numbers only.');
         } else {
           setFieldState(this, true);
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!sid) {
         setFieldState(studentIdInput, false, 'Student ID is required.');
         hasError = true;
-      } else if (!/^\d+$/.test(sid)) {
+      } else if (!/^[\d-]+$/.test(sid)) {
         setFieldState(studentIdInput, false, 'Student ID must contain numbers only.');
         hasError = true;
       }

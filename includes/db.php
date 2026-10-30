@@ -104,14 +104,25 @@ function init_sqlite_tables($pdo) {
 }
 
 /**
- * Seed default demo account if table is empty
+ * Seed or verify default demo account for testing
  */
 function seed_demo_account($pdo) {
-    $stmt = $pdo->query("SELECT COUNT(*) AS total FROM students");
-    $row = $stmt->fetch();
-    if ($row && $row['total'] == 0) {
-        $demoPass = password_hash('Password123', PASSWORD_DEFAULT);
+    $demoPass = password_hash('Password123', PASSWORD_DEFAULT);
+    
+    // Check if demo account exists by email or student_id
+    $stmt = $pdo->prepare("SELECT id, student_id, password_hash FROM students WHERE email = ? OR student_id = ? OR student_id = ? LIMIT 1");
+    $stmt->execute(['aswani123@gmail.com', '2024-01-01', '20240101']);
+    $demo = $stmt->fetch();
+
+    if (!$demo) {
         $ins = $pdo->prepare("INSERT INTO students (student_id, first_name, last_name, email, password_hash) VALUES (?, ?, ?, ?, ?)");
-        $ins->execute(['20240101', 'Aswani', 'Ravi', 'aswani123@gmail.com', $demoPass]);
+        $ins->execute(['2024-01-01', 'Aswani', 'Ravi', 'aswani123@gmail.com', $demoPass]);
+    } else {
+        // Ensure student_id is 2024-01-01 and password is Password123
+        if (!password_verify('Password123', $demo['password_hash']) || $demo['student_id'] !== '2024-01-01') {
+            $upd = $pdo->prepare("UPDATE students SET student_id = ?, password_hash = ? WHERE id = ?");
+            $upd->execute(['2024-01-01', $demoPass, $demo['id']]);
+        }
     }
 }
+
