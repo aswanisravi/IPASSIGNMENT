@@ -77,14 +77,29 @@ function get_db_connection() {
 function init_mysql_tables($conn) {
     $sqlUsers = "CREATE TABLE IF NOT EXISTS `users` (
         `id` INT AUTO_INCREMENT PRIMARY KEY,
-        `name` VARCHAR(100) NOT NULL,
+        `student_id` VARCHAR(50) NULL UNIQUE,
+        `first_name` VARCHAR(100) NULL,
+        `last_name` VARCHAR(100) NULL,
+        `name` VARCHAR(200) NOT NULL,
         `email` VARCHAR(150) NOT NULL UNIQUE,
+        `address` TEXT NULL,
         `phone` VARCHAR(20) DEFAULT NULL,
         `password` VARCHAR(255) NOT NULL,
         `role` VARCHAR(20) DEFAULT 'Student',
+        `reset_code` VARCHAR(20) DEFAULT NULL,
         `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
     $conn->query($sqlUsers);
+
+    // Auto-migrate missing columns if table existed previously
+    $colsCheck = $conn->query("SHOW COLUMNS FROM users LIKE 'student_id'");
+    if ($colsCheck && $colsCheck->num_rows === 0) {
+        @$conn->query("ALTER TABLE users ADD COLUMN student_id VARCHAR(50) NULL UNIQUE AFTER id");
+        @$conn->query("ALTER TABLE users ADD COLUMN first_name VARCHAR(100) NULL AFTER student_id");
+        @$conn->query("ALTER TABLE users ADD COLUMN last_name VARCHAR(100) NULL AFTER first_name");
+        @$conn->query("ALTER TABLE users ADD COLUMN address TEXT NULL AFTER email");
+        @$conn->query("ALTER TABLE users ADD COLUMN reset_code VARCHAR(20) NULL AFTER role");
+    }
 
     $sqlMessages = "CREATE TABLE IF NOT EXISTS `messages` (
         `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -100,14 +115,18 @@ function init_mysql_tables($conn) {
     // Seed default demo user if empty
     $check = $conn->query("SELECT id FROM users LIMIT 1");
     if ($check && $check->num_rows === 0) {
-        $demoPass = password_hash('password123', PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("INSERT INTO users (name, email, phone, password, role) VALUES (?, ?, ?, ?, ?)");
+        $demoPass = password_hash('Password123', PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("INSERT INTO users (student_id, first_name, last_name, name, email, address, phone, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         if ($stmt) {
+            $sid = '1001';
+            $fname = 'Alex';
+            $lname = 'Morgan';
             $name = 'Alex Morgan';
-            $email = 'alex@example.com';
+            $email = 'alex@gmail.com';
+            $addr = '123 Campus Lane, University Town';
             $phone = '9876543210';
             $role = 'Student';
-            $stmt->bind_param("sssss", $name, $email, $phone, $demoPass, $role);
+            $stmt->bind_param("sssssssss", $sid, $fname, $lname, $name, $email, $addr, $phone, $demoPass, $role);
             $stmt->execute();
             $stmt->close();
         }
@@ -120,13 +139,37 @@ function init_mysql_tables($conn) {
 function init_sqlite_tables($pdo) {
     $pdo->exec("CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        student_id TEXT UNIQUE,
+        first_name TEXT,
+        last_name TEXT,
         name TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
+        address TEXT,
         phone TEXT DEFAULT NULL,
         password TEXT NOT NULL,
         role TEXT DEFAULT 'Student',
+        reset_code TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );");
+
+    // Auto-migrate missing columns in SQLite if table already exists
+    $cols = $pdo->query("PRAGMA table_info(users)")->fetchAll(PDO::FETCH_ASSOC);
+    $existingCols = array_column($cols, 'name');
+    if (!in_array('student_id', $existingCols)) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN student_id TEXT;");
+    }
+    if (!in_array('first_name', $existingCols)) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN first_name TEXT;");
+    }
+    if (!in_array('last_name', $existingCols)) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN last_name TEXT;");
+    }
+    if (!in_array('address', $existingCols)) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN address TEXT;");
+    }
+    if (!in_array('reset_code', $existingCols)) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN reset_code TEXT;");
+    }
 
     $pdo->exec("CREATE TABLE IF NOT EXISTS messages (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -138,13 +181,17 @@ function init_sqlite_tables($pdo) {
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );");
 
+    // Backfill any existing rows with student_id if null
+    $pdo->exec("UPDATE users SET student_id = '1001', first_name = 'Alex', last_name = 'Morgan', address = '123 University Campus Lane' WHERE id = 1 AND (student_id IS NULL OR student_id = '');");
+    $pdo->exec("UPDATE users SET student_id = '1002', first_name = 'Aswani', last_name = 'Ravi', address = 'College Hostel Block A' WHERE id = 2 AND (student_id IS NULL OR student_id = '');");
+
     // Seed default demo user if empty
     $stmt = $pdo->query("SELECT COUNT(*) as count FROM users");
     $row = $stmt->fetch();
     if ($row && $row['count'] == 0) {
-        $demoPass = password_hash('password123', PASSWORD_DEFAULT);
-        $ins = $pdo->prepare("INSERT INTO users (name, email, phone, password, role) VALUES (?, ?, ?, ?, ?)");
-        $ins->execute(['Alex Morgan', 'alex@example.com', '9876543210', $demoPass, 'Student']);
+        $demoPass = password_hash('Password123', PASSWORD_DEFAULT);
+        $ins = $pdo->prepare("INSERT INTO users (student_id, first_name, last_name, name, email, address, phone, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $ins->execute(['1001', 'Alex', 'Morgan', 'Alex Morgan', 'alex@gmail.com', '123 University Campus Lane', '9876543210', $demoPass, 'Student']);
     }
 }
 

@@ -1,6 +1,6 @@
 /**
  * Form Validation & UI Interactivity Script
- * IP Assignment: Responsive PHP Web Application
+ * Student Login Portal & Registration Verification
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -17,13 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 2. Helper validation functions
-  const isValidEmail = (email) => {
-    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return re.test(String(email).trim());
-  };
-
+  // Helper validation state handler
   const setInputState = (input, isValid, message = '') => {
+    if (!input) return;
     const parent = input.closest('.form-group');
     const feedback = parent ? parent.querySelector('.validation-feedback') : null;
 
@@ -44,56 +40,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
 
-  const clearInputState = (input) => {
-    input.classList.remove('is-valid', 'is-invalid');
-    const parent = input.closest('.form-group');
-    const feedback = parent ? parent.querySelector('.validation-feedback') : null;
-    if (feedback) {
-      feedback.textContent = '';
-      feedback.className = 'validation-feedback';
-    }
-  };
+  // 2. Homepage Student Login Validation
+  const homeLoginForm = document.getElementById('homeLoginForm');
+  if (homeLoginForm) {
+    const studentIdInput = document.getElementById('studentId');
+    const passwordInput = document.getElementById('studentPassword');
 
-  // 3. Login Form Validation (Name, Email, Password)
-  const loginForm = document.getElementById('loginForm');
-  if (loginForm) {
-    const nameInput = document.getElementById('loginName');
-    const emailInput = document.getElementById('loginEmail');
-    const passwordInput = document.getElementById('loginPassword');
-
-    // Live validation on blur & input
-    if (nameInput) {
-      nameInput.addEventListener('blur', function () {
-        if (!this.value.trim()) {
-          setInputState(this, false, 'Full Name is required.');
-        } else if (this.value.trim().length < 2) {
-          setInputState(this, false, 'Name must be at least 2 characters.');
+    if (studentIdInput) {
+      studentIdInput.addEventListener('input', function () {
+        const val = this.value.trim();
+        if (!val) {
+          setInputState(this, false, 'Student ID is required.');
+        } else if (!/^[0-9]+$/.test(val)) {
+          setInputState(this, false, 'Student ID must contain numbers only (0-9).');
         } else {
-          setInputState(this, true, 'Valid name format.');
-        }
-      });
-      nameInput.addEventListener('input', function () {
-        if (this.classList.contains('is-invalid')) {
-          if (this.value.trim().length >= 2) {
-            setInputState(this, true);
-          }
-        }
-      });
-    }
-
-    if (emailInput) {
-      emailInput.addEventListener('blur', function () {
-        if (!this.value.trim()) {
-          setInputState(this, false, 'Email Address is required.');
-        } else if (!isValidEmail(this.value)) {
-          setInputState(this, false, 'Please enter a valid email address.');
-        } else {
-          setInputState(this, true, 'Valid email format.');
-        }
-      });
-      emailInput.addEventListener('input', function () {
-        if (this.classList.contains('is-invalid') && isValidEmail(this.value)) {
-          setInputState(this, true);
+          setInputState(this, true, 'Valid numeric ID format.');
         }
       });
     }
@@ -102,113 +63,150 @@ document.addEventListener('DOMContentLoaded', function () {
       passwordInput.addEventListener('blur', function () {
         if (!this.value) {
           setInputState(this, false, 'Password is required.');
-        } else if (this.value.length < 4) {
-          setInputState(this, false, 'Password must be at least 4 characters.');
         } else {
-          setInputState(this, true);
-        }
-      });
-      passwordInput.addEventListener('input', function () {
-        if (this.classList.contains('is-invalid') && this.value.length >= 4) {
           setInputState(this, true);
         }
       });
     }
 
-    // Submit Validation
-    loginForm.addEventListener('submit', function (e) {
+    homeLoginForm.addEventListener('submit', function (e) {
       let hasError = false;
+      const sId = studentIdInput.value.trim();
 
-      if (!nameInput.value.trim() || nameInput.value.trim().length < 2) {
-        setInputState(nameInput, false, 'Please enter your registered Name.');
+      if (!sId || !/^[0-9]+$/.test(sId)) {
+        setInputState(studentIdInput, false, 'Student ID must be numbers only.');
         hasError = true;
       }
-      if (!emailInput.value.trim() || !isValidEmail(emailInput.value)) {
-        setInputState(emailInput, false, 'Please enter a valid Email ID.');
-        hasError = true;
-      }
-      if (!passwordInput.value || passwordInput.value.length < 4) {
+      if (!passwordInput.value) {
         setInputState(passwordInput, false, 'Please enter your password.');
         hasError = true;
       }
 
       if (hasError) {
         e.preventDefault();
-        const card = loginForm.closest('.form-card');
-        if (card) {
-          card.classList.remove('shake');
-          void card.offsetWidth; // trigger reflow
-          card.classList.add('shake');
-        }
+        const card = homeLoginForm.closest('.student-login-card') || homeLoginForm;
+        card.classList.remove('shake');
+        void card.offsetWidth;
+        card.classList.add('shake');
       }
     });
-
-    // Autofill Demo credentials helper
-    window.fillDemoCredentials = function (name, email, pass) {
-      if (nameInput) nameInput.value = name;
-      if (emailInput) emailInput.value = email;
-      if (passwordInput) passwordInput.value = pass;
-      setInputState(nameInput, true, 'Demo Name loaded');
-      setInputState(emailInput, true, 'Demo Email loaded');
-      setInputState(passwordInput, true);
-    };
   }
 
-  // 4. Registration Form Validation
-  const registerForm = document.getElementById('registerForm');
-  if (registerForm) {
-    const regName = document.getElementById('regName');
+  // 3. Student Registration Form Validation
+  const regForm = document.getElementById('studentRegisterForm');
+  if (regForm) {
+    const regStudentId = document.getElementById('regStudentId');
+    const regFirstName = document.getElementById('regFirstName');
+    const regLastName = document.getElementById('regLastName');
     const regEmail = document.getElementById('regEmail');
-    const regPhone = document.getElementById('regPhone');
+    const regAddress = document.getElementById('regAddress');
     const regPassword = document.getElementById('regPassword');
     const regConfirm = document.getElementById('regConfirmPassword');
 
-    if (regName) {
-      regName.addEventListener('blur', function () {
-        if (!this.value.trim()) {
-          setInputState(this, false, 'Full Name is required.');
-        } else if (this.value.trim().length < 3) {
-          setInputState(this, false, 'Name must be at least 3 characters.');
-        } else if (!/^[a-zA-Z\s]+$/.test(this.value.trim())) {
-          setInputState(this, false, 'Name should contain letters only.');
+    // Rule: Student ID full numbers, all should numbers
+    if (regStudentId) {
+      regStudentId.addEventListener('input', function () {
+        const val = this.value.trim();
+        if (!val) {
+          setInputState(this, false, 'Student ID is required.');
+        } else if (!/^[0-9]+$/.test(val)) {
+          setInputState(this, false, 'Numbers only: Student ID cannot contain letters or symbols.');
         } else {
-          setInputState(this, true, 'Name looks great!');
+          setInputState(this, true, 'Valid numerical Student ID.');
         }
       });
     }
 
+    // Rule: First Name is mandatory
+    if (regFirstName) {
+      regFirstName.addEventListener('input', function () {
+        const val = this.value.trim();
+        if (!val) {
+          setInputState(this, false, 'First Name is mandatory.');
+        } else if (!/^[a-zA-Z\s]+$/.test(val)) {
+          setInputState(this, false, 'First Name should contain letters only.');
+        } else {
+          setInputState(this, true, 'Looks good!');
+        }
+      });
+    }
+
+    // Rule: Last Name is optional
+    if (regLastName) {
+      regLastName.addEventListener('input', function () {
+        const val = this.value.trim();
+        if (val && !/^[a-zA-Z\s]+$/.test(val)) {
+          setInputState(this, false, 'Last Name should contain letters only.');
+        } else if (val) {
+          setInputState(this, true, 'Optional Last Name accepted.');
+        }
+      });
+    }
+
+    // Rule: @gmail.com is necessary. Before that, name should be written with NO CAPS LOCK
     if (regEmail) {
-      regEmail.addEventListener('blur', function () {
-        if (!this.value.trim()) {
+      regEmail.addEventListener('input', function () {
+        const val = this.value.trim();
+        if (!val) {
           setInputState(this, false, 'Email is required.');
-        } else if (!isValidEmail(this.value)) {
-          setInputState(this, false, 'Enter a valid email address.');
+        } else if (!val.toLowerCase().endsWith('@gmail.com')) {
+          setInputState(this, false, '@gmail.com is necessary! Must end with @gmail.com.');
         } else {
-          setInputState(this, true, 'Email format is valid.');
+          const usernamePart = val.split('@')[0];
+          if (/[A-Z]/.test(usernamePart)) {
+            setInputState(this, false, 'No caps lock! Username before @gmail.com must be lowercase only.');
+          } else if (!/^[a-z0-9._%+-]+@gmail\.com$/.test(val)) {
+            setInputState(this, false, 'Please enter a valid lowercase Gmail address.');
+          } else {
+            setInputState(this, true, 'Valid Gmail address (no caps lock).');
+          }
         }
       });
     }
 
-    if (regPhone) {
-      regPhone.addEventListener('blur', function () {
-        const cleaned = this.value.replace(/[\s-]/g, '');
-        if (!cleaned) {
-          setInputState(this, false, 'Phone number is required.');
-        } else if (!/^\d{10}$/.test(cleaned)) {
-          setInputState(this, false, 'Enter a valid 10-digit phone number.');
+    // Rule: Address required
+    if (regAddress) {
+      regAddress.addEventListener('blur', function () {
+        if (!this.value.trim()) {
+          setInputState(this, false, 'Address is required.');
         } else {
-          setInputState(this, true, 'Valid phone number.');
+          setInputState(this, true);
         }
       });
     }
+
+    // Rule: Password condition: alphanumeric, 0 to 9, capital letter and small letter
+    const validatePasswordFormat = (pwd) => {
+      const hasUpper = /[A-Z]/.test(pwd);
+      const hasLower = /[a-z]/.test(pwd);
+      const hasNumber = /[0-9]/.test(pwd);
+      return {
+        isValid: hasUpper && hasLower && hasNumber && pwd.length >= 6,
+        hasUpper,
+        hasLower,
+        hasNumber
+      };
+    };
 
     if (regPassword) {
       regPassword.addEventListener('input', function () {
-        if (this.value.length < 6) {
+        const pwd = this.value;
+        const res = validatePasswordFormat(pwd);
+
+        if (!pwd) {
+          setInputState(this, false, 'Password is required.');
+        } else if (pwd.length < 6) {
           setInputState(this, false, 'Password must be at least 6 characters.');
+        } else if (!res.hasUpper) {
+          setInputState(this, false, 'Must include at least one CAPITAL letter (A-Z).');
+        } else if (!res.hasLower) {
+          setInputState(this, false, 'Must include at least one SMALL letter (a-z).');
+        } else if (!res.hasNumber) {
+          setInputState(this, false, 'Must include at least one NUMBER (0-9).');
         } else {
-          setInputState(this, true, 'Password strength: Good');
+          setInputState(this, true, 'Strong password meets all conditions!');
         }
+
         if (regConfirm && regConfirm.value) {
           checkPasswordsMatch();
         }
@@ -224,53 +222,68 @@ document.addEventListener('DOMContentLoaded', function () {
         setInputState(regConfirm, false, 'Passwords do not match.');
         return false;
       } else {
-        setInputState(regConfirm, true, 'Passwords match perfectly!');
+        setInputState(regConfirm, true, 'Passwords match!');
         return true;
       }
     }
 
     if (regConfirm) {
       regConfirm.addEventListener('input', checkPasswordsMatch);
-      regConfirm.addEventListener('blur', checkPasswordsMatch);
     }
 
-    registerForm.addEventListener('submit', function (e) {
+    // Registration Submit Event
+    regForm.addEventListener('submit', function (e) {
       let hasError = false;
 
-      if (!regName.value.trim() || regName.value.trim().length < 3) {
-        setInputState(regName, false, 'Please provide a valid full name.');
+      // Validate ID
+      const sid = regStudentId.value.trim();
+      if (!sid || !/^[0-9]+$/.test(sid)) {
+        setInputState(regStudentId, false, 'Student ID must contain numbers only.');
         hasError = true;
       }
-      if (!regEmail.value.trim() || !isValidEmail(regEmail.value)) {
-        setInputState(regEmail, false, 'Please provide a valid email.');
+
+      // Validate First Name
+      if (!regFirstName.value.trim()) {
+        setInputState(regFirstName, false, 'First Name is mandatory.');
         hasError = true;
       }
-      const phoneClean = regPhone.value.replace(/[\s-]/g, '');
-      if (!phoneClean || !/^\d{10}$/.test(phoneClean)) {
-        setInputState(regPhone, false, 'Please enter a valid 10-digit phone number.');
+
+      // Validate Email
+      const emailVal = regEmail.value.trim();
+      if (!emailVal || !emailVal.toLowerCase().endsWith('@gmail.com') || /[A-Z]/.test(emailVal.split('@')[0])) {
+        setInputState(regEmail, false, 'Must be a lowercase @gmail.com address with no caps lock.');
         hasError = true;
       }
-      if (!regPassword.value || regPassword.value.length < 6) {
-        setInputState(regPassword, false, 'Password must be at least 6 characters.');
+
+      // Validate Address
+      if (!regAddress.value.trim()) {
+        setInputState(regAddress, false, 'Address is required.');
         hasError = true;
       }
+
+      // Validate Password
+      const pwdRes = validatePasswordFormat(regPassword.value);
+      if (!pwdRes.isValid) {
+        setInputState(regPassword, false, 'Must contain 0-9, capital letter and small letter.');
+        hasError = true;
+      }
+
+      // Confirm match
       if (!checkPasswordsMatch()) {
         hasError = true;
       }
 
       if (hasError) {
         e.preventDefault();
-        const card = registerForm.closest('.form-card');
-        if (card) {
-          card.classList.remove('shake');
-          void card.offsetWidth;
-          card.classList.add('shake');
-        }
+        const card = regForm.closest('.form-card') || regForm;
+        card.classList.remove('shake');
+        void card.offsetWidth;
+        card.classList.add('shake');
       }
     });
   }
 
-  // 5. Contact Form Validation
+  // 4. Contact Form Validation
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     const contactName = document.getElementById('contactName');
@@ -285,12 +298,12 @@ document.addEventListener('DOMContentLoaded', function () {
         setInputState(contactName, false, 'Please enter your name.');
         hasError = true;
       }
-      if (!contactEmail.value.trim() || !isValidEmail(contactEmail.value)) {
+      if (!contactEmail.value.trim() || !contactEmail.value.includes('@')) {
         setInputState(contactEmail, false, 'Please enter a valid email.');
         hasError = true;
       }
       if (!contactSubject.value.trim() || contactSubject.value.trim().length < 3) {
-        setInputState(contactSubject, false, 'Please enter a message subject.');
+        setInputState(contactSubject, false, 'Please enter a subject.');
         hasError = true;
       }
       if (!contactMessage.value.trim() || contactMessage.value.trim().length < 10) {
@@ -308,4 +321,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
-

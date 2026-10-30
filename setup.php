@@ -22,7 +22,7 @@ if (isset($_POST['action'])) {
 $conn_info = get_db_connection();
 $users_count = db_fetch_one("SELECT COUNT(*) as count FROM users");
 $messages_count = db_fetch_one("SELECT COUNT(*) as count FROM messages");
-$users_list = db_fetch_all("SELECT id, name, email, phone, role, created_at FROM users");
+$users_list = db_fetch_all("SELECT id, student_id, first_name, last_name, name, email, address, phone, role, created_at FROM users");
 
 include __DIR__ . '/includes/header.php';
 include __DIR__ . '/includes/navbar.php';
@@ -100,15 +100,17 @@ include __DIR__ . '/includes/navbar.php';
     <!-- Pre-Configured Users Table -->
     <div class="card" style="margin-bottom: 2rem;">
       <h3 style="font-size: 1.25rem; color: var(--navy-primary); margin-bottom: 1rem; font-weight: 700;">
-        &#128101; Seeded User Accounts in Database
+        &#128101; Registered Student Accounts in Database
       </h3>
       <div class="table-responsive">
         <table class="custom-table">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Full Name (Required for Login)</th>
-              <th>Email ID (Required for Login)</th>
+              <th>Student ID (Login)</th>
+              <th>Full Name</th>
+              <th>Gmail Address</th>
+              <th>Address</th>
               <th>Default Password</th>
               <th>Role</th>
             </tr>
@@ -118,9 +120,11 @@ include __DIR__ . '/includes/navbar.php';
               <?php foreach ($users_list as $u): ?>
                 <tr>
                   <td>#<?php echo htmlspecialchars($u['id']); ?></td>
+                  <td><strong style="color: #0B1F4B; font-family: monospace;"><?php echo htmlspecialchars($u['student_id'] ?? '1001'); ?></strong></td>
                   <td><strong><?php echo htmlspecialchars($u['name']); ?></strong></td>
                   <td><code><?php echo htmlspecialchars($u['email']); ?></code></td>
-                  <td><code class="demo-code">password123</code></td>
+                  <td><?php echo htmlspecialchars($u['address'] ?? 'Campus Lane'); ?></td>
+                  <td><code class="demo-code">Password123</code></td>
                   <td><span class="status-badge connected"><?php echo htmlspecialchars($u['role']); ?></span></td>
                 </tr>
               <?php endforeach; ?>

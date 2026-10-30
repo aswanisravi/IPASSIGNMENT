@@ -380,6 +380,258 @@ img {
 }
 
 /* --------------------------------------------------------------------------
+   Student Portal Hero & Homepage Login Card
+   -------------------------------------------------------------------------- */
+.portal-hero {
+  background-color: #FFFFFF;
+  padding: 3.5rem 0 4rem;
+  border-bottom: 2px solid #C9A227;
+}
+
+.portal-header-area {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 2.5rem;
+}
+
+.portal-crest-circle {
+  width: 64px;
+  height: 64px;
+  background: #0B1F4B;
+  color: #C9A227;
+  border: 2px solid #C9A227;
+  border-radius: 50%;
+  font-size: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(11, 31, 75, 0.15);
+}
+
+.portal-main-heading {
+  color: #0B1F4B;
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.portal-sub-heading {
+  color: #64748b;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.login-box-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.student-login-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-top: 5px solid #C9A227;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px -5px rgba(11, 31, 75, 0.08);
+  padding: 2.25rem 2rem;
+}
+
+.login-card-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.login-icon-badge {
+  font-size: 1.5rem;
+  color: #C9A227;
+  margin-bottom: 0.35rem;
+}
+
+.login-title {
+  color: #0B1F4B;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+}
+
+.login-subtitle {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.demo-login-box {
+  background: #F8FAFC;
+  border: 1px dashed #C9A227;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+}
+
+.demo-login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+  color: #0B1F4B;
+}
+
+.demo-login-body code {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.demo-link-btn {
+  background: none;
+  border: none;
+  color: #173b67;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.demo-link-btn:hover {
+  color: #C9A227;
+}
+
+.label-hint {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-left: 0.35rem;
+}
+
+.forgot-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #173b67;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  color: #C9A227;
+  text-decoration: underline;
+}
+
+.create-account-prompt {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #E2E8F0;
+  font-size: 0.92rem;
+  color: #64748b;
+}
+
+.create-account-link {
+  font-weight: 700;
+  color: #0B1F4B;
+  text-decoration: underline;
+  margin-left: 0.35rem;
+}
+
+.create-account-link:hover {
+  color: #C9A227;
+}
+
+/* --------------------------------------------------------------------------
+   Digital Student ID Card Styles
+   -------------------------------------------------------------------------- */
+.digital-id-card {
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(11, 31, 75, 0.08);
+}
+
+.id-card-header {
+  background: #0B1F4B;
+  color: #FFFFFF;
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #C9A227;
+}
+
+.id-card-body {
+  padding: 1.75rem 1.5rem;
+}
+
+.id-photo-box {
+  width: 90px;
+  height: 105px;
+  background: #F1F5F9;
+  border: 2px solid #CBD5E1;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.id-photo-caption {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 1px;
+}
+
+.id-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.id-table tr {
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.id-label {
+  padding: 0.6rem 0;
+  font-weight: 600;
+  color: #0B1F4B;
+  width: 38%;
+}
+
+.id-value {
+  padding: 0.6rem 0;
+  color: #334155;
+}
+
+.id-value code {
+  background: #F8FAFC;
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.id-barcode-section {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed #CBD5E1;
+  text-align: center;
+}
+
+.barcode-graphic {
+  font-family: monospace;
+  font-size: 1.15rem;
+  letter-spacing: 2.5px;
+  color: #0B1F4B;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
    Student Home Page Sections
    -------------------------------------------------------------------------- */
 .student-section {
