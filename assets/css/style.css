@@ -1,0 +1,942 @@
+/* ==========================================================================
+   IP ASSIGNMENT - RESPONSIVE WEB APPLICATION STYLESHEET
+   Theme: White, Navy Blue, and Gold Accents
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties / Design Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Navy Blue Palette */
+  --navy-darkest: #071322;
+  --navy-primary: #0a192f;
+  --navy-secondary: #0f2744;
+  --navy-accent: #173b67;
+  --navy-light: #204a80;
+  --navy-muted: #486581;
+
+  /* Gold Palette */
+  --gold-primary: #d4af37;
+  --gold-light: #f5cf62;
+  --gold-dark: #b8860b;
+  --gold-amber: #e5a93b;
+  --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f39c12 100%);
+  --gold-gradient-hover: linear-gradient(135deg, #f5cf62 0%, #d4af37 100%);
+  --gold-subtle: rgba(212, 175, 55, 0.12);
+  --gold-border: rgba(212, 175, 55, 0.35);
+  --gold-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+
+  /* White & Neutrals */
+  --bg-white: #ffffff;
+  --bg-surface: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --border-light: #e2e8f0;
+  --border-color: #cbd5e1;
+
+  /* Text Colors */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+  --text-gold: #b8860b;
+
+  /* Status Colors */
+  --status-success: #10b981;
+  --status-success-bg: #ecfdf5;
+  --status-success-border: #6ee7b7;
+  --status-danger: #ef4444;
+  --status-danger-bg: #fef2f2;
+  --status-danger-border: #fca5a5;
+  --status-info: #0284c7;
+  --status-info-bg: #f0f9ff;
+
+  /* Layout & Sizing */
+  --container-max: 1200px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --transition: all 0.25s ease-in-out;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Global Styles
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-white);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+a {
+  color: var(--navy-light);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--gold-dark);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. Header & Navigation (Navy Blue + Gold Accents)
+   -------------------------------------------------------------------------- */
+.site-header {
+  background-color: var(--navy-primary);
+  border-bottom: 3px solid var(--gold-primary);
+  box-shadow: 0 4px 12px rgba(10, 25, 47, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-inverse);
+  text-decoration: none;
+}
+
+.logo-brand:hover {
+  color: var(--gold-light);
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--gold-gradient);
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy-darkest);
+  font-weight: 800;
+  font-size: 1.25rem;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+}
+
+.logo-brand span.gold-text {
+  color: var(--gold-primary);
+}
+
+/* Navigation Links */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: #cbd5e1;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--gold-primary);
+}
+
+.nav-link.active {
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 2px;
+  background: var(--gold-primary);
+  border-radius: 2px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--gold-border);
+  color: var(--text-inverse);
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.mobile-toggle:hover {
+  background: var(--gold-subtle);
+  color: var(--gold-light);
+}
+
+/* --------------------------------------------------------------------------
+   4. Buttons (Navy Blue + Gold Accents)
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: var(--transition);
+  text-decoration: none;
+  text-align: center;
+}
+
+/* Gold Button */
+.btn-gold {
+  background: var(--gold-gradient);
+  color: #0B1F4B;
+  border-color: var(--gold-primary);
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+}
+
+.btn-gold:hover {
+  background: var(--gold-gradient-hover);
+  color: #0B1F4B;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Navy Blue Button */
+.btn-navy {
+  background-color: var(--navy-secondary);
+  color: #ffffff;
+  border-color: var(--gold-primary);
+}
+
+.btn-navy:hover {
+  background-color: var(--navy-accent);
+  color: var(--gold-light);
+  border-color: var(--gold-light);
+  box-shadow: 0 4px 14px rgba(10, 25, 47, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Outline Gold Button */
+.btn-outline-gold {
+  background: transparent;
+  color: var(--gold-primary);
+  border: 2px solid var(--gold-primary);
+}
+
+.btn-outline-gold:hover {
+  background: var(--gold-primary);
+  color: var(--navy-darkest);
+  box-shadow: var(--gold-shadow);
+  transform: translateY(-2px);
+}
+
+/* Outline Navy Button */
+.btn-outline-navy {
+  background: transparent;
+  color: #0B1F4B;
+  border: 2px solid #0B1F4B;
+}
+
+.btn-outline-navy:hover {
+  background: #0B1F4B;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.btn-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   5. Hero & Showcase Sections (Plain White Background with Thin Gold Line)
+   -------------------------------------------------------------------------- */
+.hero-section {
+  background-color: #FFFFFF;
+  color: #0B1F4B;
+  padding: 5rem 0 4.5rem;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1.5px solid #C9A227;
+}
+
+.hero-section::before {
+  display: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(201, 162, 39, 0.08);
+  border: 1px solid #C9A227;
+  color: #0B1F4B;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 1rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-size: 2.85rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 1.25rem;
+  color: #0B1F4B;
+}
+
+.hero-title span.gold-highlight {
+  color: #C9A227;
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: #0B1F4B;
+  margin-bottom: 2.25rem;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   6. Cards & Section Components
+   -------------------------------------------------------------------------- */
+.section-padding {
+  padding: 4.5rem 0;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 3rem;
+}
+
+.section-tag {
+  color: var(--gold-dark);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.section-title {
+  color: var(--navy-primary);
+  font-size: 2.15rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  transition: var(--transition);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -4px rgba(10, 25, 47, 0.1);
+  border-color: var(--gold-primary);
+}
+
+.card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  background: var(--navy-secondary);
+  border: 1px solid var(--gold-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-primary);
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.card-title {
+  color: var(--navy-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.card-text {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   7. Form Styling & Real-time Validation Feedback
+   -------------------------------------------------------------------------- */
+.auth-wrapper {
+  min-height: calc(100vh - 180px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+
+.form-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-top: 5px solid var(--gold-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(10, 25, 47, 0.08);
+  width: 100%;
+  max-width: 480px;
+  padding: 2.5rem;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-header h2 {
+  color: var(--navy-primary);
+  font-size: 1.85rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.form-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.form-group {
+  margin-bottom: 1.35rem;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--navy-secondary);
+  margin-bottom: 0.45rem;
+}
+
+.form-label .required-star {
+  color: var(--status-danger);
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background-color: #ffffff;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+}
+
+/* Valid Input State */
+.form-input.is-valid {
+  border-color: var(--status-success) !important;
+  background-color: #fafffc;
+}
+
+/* Invalid Input State */
+.form-input.is-invalid {
+  border-color: var(--status-danger) !important;
+  background-color: #fffaf9;
+}
+
+.validation-feedback {
+  font-size: 0.82rem;
+  margin-top: 0.35rem;
+  display: none;
+}
+
+.validation-feedback.error {
+  color: var(--status-danger);
+  display: block;
+}
+
+.validation-feedback.success {
+  color: var(--status-success);
+  display: block;
+}
+
+/* Shake Animation for Invalid Submission */
+@keyframes shakeAnimation {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+.shake {
+  animation: shakeAnimation 0.45s ease-in-out;
+}
+
+/* Alerts / Banners */
+.alert {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.5rem;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  line-height: 1.5;
+}
+
+.alert-danger {
+  background-color: var(--status-danger-bg);
+  border: 1px solid var(--status-danger-border);
+  color: #991b1b;
+}
+
+.alert-success {
+  background-color: var(--status-success-bg);
+  border: 1px solid var(--status-success-border);
+  color: #065f46;
+}
+
+.alert-info {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.alert-gold {
+  background-color: #fffdf5;
+  border: 1px solid var(--gold-border);
+  color: #78350f;
+}
+
+/* Demo Credential Box */
+.demo-box {
+  background: var(--bg-subtle);
+  border: 1px dashed var(--gold-primary);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+}
+
+.demo-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: var(--navy-secondary);
+  font-weight: 700;
+}
+
+.demo-code {
+  font-family: monospace;
+  background: #ffffff;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+/* --------------------------------------------------------------------------
+   8. User Dashboard & Stats Components
+   -------------------------------------------------------------------------- */
+.dashboard-header {
+  background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+  color: #ffffff;
+  padding: 2.75rem 0;
+  border-bottom: 3px solid var(--gold-primary);
+}
+
+.dash-user-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.dash-avatar-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.avatar-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background: var(--gold-gradient);
+  color: var(--navy-darkest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  border: 3px solid #ffffff;
+  box-shadow: var(--gold-shadow);
+}
+
+.dash-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin: -2rem 0 2.5rem;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(10, 25, 47, 0.08);
+  border-top: 4px solid var(--gold-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.stat-value {
+  color: var(--navy-primary);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   9. Tables
+   -------------------------------------------------------------------------- */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: var(--navy-secondary);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+  border-bottom: 2px solid var(--gold-primary);
+}
+
+.custom-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.custom-table tr:hover {
+  background-color: var(--bg-subtle);
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.status-badge.connected {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.status-badge.error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.status-badge .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   10. Footer (Navy Blue + Gold Accents)
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background-color: var(--navy-darkest);
+  color: #94a3b8;
+  border-top: 3px solid var(--gold-primary);
+  padding: 3rem 0 1.5rem;
+  margin-top: auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-heading {
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.footer-heading::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 32px;
+  height: 2px;
+  background: var(--gold-primary);
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: var(--gold-light);
+  padding-left: 4px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   11. Responsive Media Queries
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dash-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background-color: var(--navy-secondary);
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1rem;
+    border-bottom: 2px solid var(--gold-primary);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .nav-link {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-link.active::after {
+    display: none;
+  }
+
+  .grid-3, .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-stat-grid {
+    grid-template-columns: 1fr;
+    margin-top: 1.5rem;
+  }
+
+  .hero-section {
+    padding: 3.5rem 0 3rem;
+  }
+
+  .hero-title {
+    font-size: 1.85rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .form-card {
+    padding: 1.75rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
